@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">꺼내 먹어요</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">로그인</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_ingredient_management">IngredientManagementActivity</string>
+    <string name="ingredient_management">식재료 관리</string>
+    <string name="recipe_recommend">레시피 추천</string>
+    <string name="community">커뮤니티</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="account_header">계정 관리</string>
+    <string name="logout_title">로그아웃</string>
+    <string name="delete_account_title">회원 탈퇴</string>
+
+
+</resources>
