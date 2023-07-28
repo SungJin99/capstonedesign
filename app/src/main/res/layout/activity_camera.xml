@@ -5,17 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CameraActivity">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:context=".IngredientAddActivity">
 
         <com.journeyapps.barcodescanner.BarcodeView
             android:id="@+id/scanner_view"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true" />
+
+        <View
+            android:id="@+id/focus_view"
+            android:layout_width="600dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/fullscreen" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
