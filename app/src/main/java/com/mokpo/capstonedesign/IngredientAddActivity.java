@@ -22,19 +22,17 @@ import androidx.preference.PreferenceManager;
 
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
-import com.mokpo.capstonedesign.retrofit2.IngredientAddItem;
 import com.mokpo.capstonedesign.retrofit2.IngredientAddRequest;
-import com.mokpo.capstonedesign.retrofit2.IngredientResponse;
+import com.mokpo.capstonedesign.retrofit2.IngredientAddItem;
+import com.mokpo.capstonedesign.retrofit2.IngredientAddResponse;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class IngredientAddActivity extends AppCompatActivity {
 
@@ -53,6 +51,10 @@ public class IngredientAddActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay;
     private TextView barcodeTextView;
     private int quantity = 0;
+
+    private String name;
+    private String memo;
+    private String expiry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,46 +118,53 @@ public class IngredientAddActivity extends AppCompatActivity {
         });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
-            String name = nameEditText.getText().toString();
-            String expiry = expiryEditText.getText().toString();
-            String quantity = quantityTextView.getText().toString();
-            String memo = memoEditText.getText().toString();
-
-
             @Override
             public void onClick(View v) {
+                String name = nameEditText.getText().toString();
+                String expiry = expiryEditText.getText().toString();
+                int quantity = Integer.parseInt(quantityTextView.getText().toString());
+                String memo = memoEditText.getText().toString();
 
-                //sendFoodList(name, memo, quantity, expiry);
-
+                IngredientAddRequest request = createFoodList(name, memo, quantity, expiry);
+                sendFoodList(request);
             }
         });
     }
-//    private void sendFoodList(List<IngredientAddItem> foodList) {
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        String accessToken = sharedPreferences.getString("jwt_token", "");
-//        ApiService apiService = ApiClient.getApiService();
-//
-//        IngredientAddRequest addRequest = new IngredientAddRequest(foodList);
-//        // Call<List<IngredientResponse>> call = apiService.ingredientAdd(IngredientAddRequest); // foodListRequest를 사용하여 요청
-//        call.enqueue(new Callback<List<IngredientResponse>>() {
-//            @Override
-//            public void onResponse(Call<List<IngredientResponse>> call, Response<List<IngredientResponse>>response) {
-//                if (response.isSuccessful()) {
-//                    List<IngredientResponse> foodListResponses = response.body();
-//                    // foodListResponses를 사용하여 원하는 작업 수행...
-//                    Toast.makeText(IngredientAddActivity.this, "음식 목록이 등록되었습니다.", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Log.d("FoodListActivity", "onResponse StatusCode: " + response.code());
-//                    Toast.makeText(IngredientAddActivity.this, "음식 목록 등록 실패.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<IngredientResponse>> call, Throwable t) {
-//                Log.d("FoodListActivity", "onFailure: " + t.getMessage());
-//            }
-//        });
-//    }
+    public IngredientAddRequest createFoodList(String name, String memo, int quantity, String expiry) {
+        IngredientAddRequest request = new IngredientAddRequest();
+        List<IngredientAddRequest.FoodItem> foodlist = new ArrayList<>();
+        foodlist.add(new IngredientAddRequest.FoodItem(name, memo, quantity, expiry));
+        request.setFoodlist(foodlist);
+        return request;
+    }
+
+    private void sendFoodList(IngredientAddRequest addRequest) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String accessToken = sharedPreferences.getString("jwt_token", "");
+
+        ApiService apiService = ApiClient.getApiService();
+
+        Call<IngredientAddResponse> call = apiService.getInsertfood("Bearer " + accessToken, addRequest);
+        call.enqueue(new Callback<IngredientAddResponse>() {
+            @Override
+            public void onResponse(Call<IngredientAddResponse> call, retrofit2.Response<IngredientAddResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.i("MainActivity", "Data posted successfully.");
+                    Toast.makeText(IngredientAddActivity.this, "식재료가 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e("MainActivity", "Error posting data: " + response.code());
+                    Toast.makeText(IngredientAddActivity.this, "식재료 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IngredientAddResponse> call, Throwable t) {
+                Log.e("MainActivity", "Error: " + t.getMessage());
+                Toast.makeText(IngredientAddActivity.this, "네트워크에 문제가 있습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void openCamera() {
         Intent intent = new Intent(IngredientAddActivity.this, CameraActivity.class);
         startActivityForResult(intent, BARCODE_SCAN_REQUEST_CODE);

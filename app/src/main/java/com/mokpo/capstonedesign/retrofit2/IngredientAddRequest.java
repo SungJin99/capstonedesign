@@ -1,24 +1,32 @@
 package com.mokpo.capstonedesign.retrofit2;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class IngredientAddRequest {
-    @SerializedName("foodlist")
-    private List<IngredientAddItem> ingredientAdd;
 
-    public IngredientAddRequest(List<IngredientAddItem> ingredientAdd) {
-        this.ingredientAdd = ingredientAdd;
+    private List<FoodItem> foodlist;
+
+    public List<FoodItem> getFoodlist() {
+        return foodlist;
     }
 
-    // 게터 및 세터 메서드를 추가합니다.
-    public List<IngredientAddItem> getIngredientAdd() {
-        return ingredientAdd;
+    public void setFoodlist(List<FoodItem> foodlist) {
+        this.foodlist = foodlist;
     }
 
-    public void setIngredientAdd(List<IngredientAddItem> ingredientAdd) {
-        this.ingredientAdd = ingredientAdd;
+    public static class FoodItem {
+        private String name;
+        private String memo;
+        private int count;
+        private String date;
+
+        public FoodItem(String name, String memo, int count, String date) {
+            this.name = name;
+            this.memo = memo;
+            this.count = count;
+            this.date = date;
+        }
+
+        // getters, setters 생략
     }
 }
-

@@ -1,23 +1,55 @@
 package com.mokpo.capstonedesign.retrofit2;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 public class IngredientAddResponse {
-    @SerializedName("id")
-    private int id;
 
-    @SerializedName("name")
-    private String name;
+    private List<FoodItem> foodlist;
 
-    @SerializedName("memo")
-    private String memo;
+    public List<FoodItem> getInsertfood() {
+        return foodlist;
+    }
 
-    @SerializedName("count")
-    private int count;
+    public void setInsertfood(List<FoodItem> foodlist) {
+        this.foodlist = foodlist;
+    }
 
-    @SerializedName("date")
-    private String date;
+    public static class FoodItem {
+        private String name;
+        private String memo;
+        private int count;
+        private String date;
 
-    @SerializedName("user")
-    private int user;
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getMemo() {
+            return memo;
+        }
+
+        public void setMemo(String memo) {
+            this.memo = memo;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+    }
 }
