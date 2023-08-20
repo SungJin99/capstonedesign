@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.mokpo.capstonedesign.ui.dashboard.DashboardFragment"
+        android:name="com.mokpo.capstonedesign.ui.RecipeRecommend.DashboardFragment"
         android:label="@string/recipe_recommend"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.mokpo.capstonedesign.ui.notifications.NotificationsFragment"
+        android:name="com.mokpo.capstonedesign.ui.community.NotificationsFragment"
         android:label="@string/community"
         tools:layout="@layout/fragment_notifications" />
 

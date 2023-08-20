@@ -1,4 +1,4 @@
-package com.mokpo.capstonedesign.ui.notifications;
+package com.mokpo.capstonedesign.ui.community;
 
 import android.content.Intent;
 import android.os.Bundle;

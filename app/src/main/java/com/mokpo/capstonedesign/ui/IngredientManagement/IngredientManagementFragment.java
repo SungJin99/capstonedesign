@@ -12,6 +12,7 @@ import com.mokpo.capstonedesign.retrofit2.ApiService;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +47,8 @@ public class IngredientManagementFragment extends Fragment {
             }
         });
         fetchFoodList();
+
+
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

@@ -32,8 +32,11 @@
             android:exported="false"
             android:label="@string/title_activity_ingredient_management" />
         <activity
-            android:name=".ui.notifications.NotificationsAddActivity"
+            android:name=".ui.community.NotificationsAddActivity"
             android:label="글 작성하기"/>
+        <activity
+            android:name=".IngredientUpdateActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"

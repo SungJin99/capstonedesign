@@ -1,4 +1,4 @@
-package com.mokpo.capstonedesign.ui.dashboard;
+package com.mokpo.capstonedesign.ui.RecipeRecommend;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
