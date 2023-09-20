@@ -16,7 +16,7 @@ public interface ApiService {
     @GET("api/get/")
     Call<List<IngredientResponse>> getFoodList(@Header("Authorization")String token);
 
-    @POST("api/putingredient/")
+    @POST("api/put_ingredient/")
     Call<IngredientAddResponse> getInsertfood(@Header("Authorization")String token, @Body IngredientAddRequest request);
 }
 

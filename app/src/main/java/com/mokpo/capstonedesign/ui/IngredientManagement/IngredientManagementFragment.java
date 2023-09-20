@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mokpo.capstonedesign.SwipeController;
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
 import androidx.annotation.NonNull;
@@ -47,6 +48,9 @@ public class IngredientManagementFragment extends Fragment {
             }
         });
         fetchFoodList();
+        SwipeController swipeController = new SwipeController(recyclerView);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
 
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
