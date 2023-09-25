@@ -9,14 +9,14 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface ApiService {
-    @POST("api/login/")
+    @POST("api/user/login/")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
 
-    @GET("api/get/")
+    @GET("api/food/get/")
     Call<List<IngredientResponse>> getFoodList(@Header("Authorization")String token);
 
-    @POST("api/put_ingredient/")
+    @POST("api/food/put_ingredient/")
     Call<IngredientAddResponse> getInsertfood(@Header("Authorization")String token, @Body IngredientAddRequest request);
 }
 

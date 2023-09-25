@@ -60,7 +60,7 @@ public class CameraActivity extends AppCompatActivity {
         barcodeView.pause();
     }
     private void onScanComplete(String barcodeResult) {
-        String url = "http://20.214.138.61:8000/api/barnumretrun/";
+        String url = "http://20.214.138.61:8000/api/food/barnumretrun/";
         String barnum = barcodeResult;
         Intent resultIntent = new Intent(CameraActivity.this, IngredientAddActivity.class);
         DjangoApiHandler.sendPostRequest(url, barnum, new DjangoApiHandler.ApiResponseCallback() {
