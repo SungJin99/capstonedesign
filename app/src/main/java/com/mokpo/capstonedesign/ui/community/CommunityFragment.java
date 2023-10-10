@@ -11,16 +11,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.mokpo.capstonedesign.R;
-import com.mokpo.capstonedesign.databinding.FragmentNotificationsBinding;
+import com.mokpo.capstonedesign.databinding.FragmentCommunityBinding;
 
-public class NotificationsFragment extends Fragment {
+public class CommunityFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentCommunityBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentCommunityBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -33,7 +33,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Execute code to navigate to NotificationsAddActivity
-                Intent intent = new Intent(getActivity(), NotificationsAddActivity.class);
+                Intent intent = new Intent(getActivity(), CommunityActivity.class);
                 startActivity(intent);
             }
         });

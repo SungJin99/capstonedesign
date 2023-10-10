@@ -8,12 +8,12 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import com.mokpo.capstonedesign.R;
 
-public class NotificationsAddActivity extends AppCompatActivity {
+public class CommunityActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications_add);
+        setContentView(R.layout.activity_community_add);
 
         Button regButton = findViewById(R.id.reg_button);
         regButton.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +36,7 @@ public class NotificationsAddActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+///
 
         // Add your code for handling the activity here
         // For example, you can initialize views and set up any necessary event listeners

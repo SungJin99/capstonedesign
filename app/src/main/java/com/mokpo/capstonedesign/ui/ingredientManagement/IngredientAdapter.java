@@ -1,4 +1,4 @@
-package com.mokpo.capstonedesign.ui.IngredientManagement;
+package com.mokpo.capstonedesign.ui.ingredientManagement;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

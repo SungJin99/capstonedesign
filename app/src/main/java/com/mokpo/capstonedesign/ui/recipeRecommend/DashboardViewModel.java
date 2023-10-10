@@ -1,4 +1,4 @@
-package com.mokpo.capstonedesign.ui.RecipeRecommend;
+package com.mokpo.capstonedesign.ui.recipeRecommend;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

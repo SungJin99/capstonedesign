@@ -18,5 +18,8 @@ public interface ApiService {
 
     @POST("api/food/put_ingredient/")
     Call<IngredientAddResponse> getInsertfood(@Header("Authorization")String token, @Body IngredientAddRequest request);
+
+    ///@POST("api/board/")
+    ///
 }
 

@@ -1,4 +1,4 @@
-package com.mokpo.capstonedesign.ui.IngredientManagement;
+package com.mokpo.capstonedesign.ui.ingredientManagement;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
