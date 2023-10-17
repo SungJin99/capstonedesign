@@ -1,4 +1,6 @@
 package com.mokpo.capstonedesign.ui.ingredientManagement;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +13,11 @@ import com.mokpo.capstonedesign.retrofit2.IngredientResponse;
 import java.util.List;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.FoodViewHolder> {
+    Context mContext;
+    private static List<IngredientResponse> foodList;
 
-    private List<IngredientResponse> foodList;
-
-    public IngredientAdapter(List<IngredientResponse> foodList) {
+    public IngredientAdapter(Context context, List<IngredientResponse> foodList) {
+        this.mContext = context;
         this.foodList = foodList;
     }
 
@@ -42,7 +45,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
         return foodList.size();
     }
 
-    public static class FoodViewHolder extends RecyclerView.ViewHolder {
+    public class FoodViewHolder extends RecyclerView.ViewHolder {
         TextView tvIngredientId;
         TextView tvIngredientName;
         TextView tvIngredientExpirationDate;
@@ -58,7 +61,25 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
             tvIngredientQuantity = itemView.findViewById(R.id.tv_ingredient_quantity);
             tvIngredientMemo = itemView.findViewById(R.id.tv_ingredient_memo);
             tvIngredientUser = itemView.findViewById(R.id.tv_ingredient_user);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION && mContext != null){
+                        Intent intent = new Intent(mContext, IngredientUpdateActivity.class);
+                        intent.putExtra("id", foodList.get(position).getId());
+                        intent.putExtra("name", foodList.get(position).getName());
+                        intent.putExtra("expirationdate", foodList.get(position).getDate());
+                        intent.putExtra("quantity", foodList.get(position).getCount());
+                        intent.putExtra("memo", foodList.get(position).getMemo());
+                        intent.putExtra("user", foodList.get(position).getUser());
+                        intent.putExtra("position", position);
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
         }
+
     }
 }
 

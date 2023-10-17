@@ -82,7 +82,7 @@ public class IngredientManagementFragment extends Fragment {
     }
 
     private void displayFoodList(List<IngredientResponse> foodList) {
-        RecyclerView.Adapter adapter = new IngredientAdapter(foodList);
+        RecyclerView.Adapter adapter = new IngredientAdapter(requireActivity(), foodList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
