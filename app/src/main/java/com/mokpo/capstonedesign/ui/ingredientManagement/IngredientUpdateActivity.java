@@ -19,13 +19,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
-
+import androidx.recyclerview.widget.RecyclerView;
+import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientManagementFragment;
 import com.mokpo.capstonedesign.CameraActivity;
 import com.mokpo.capstonedesign.R;
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
 import com.mokpo.capstonedesign.retrofit2.IngredientAddRequest;
 import com.mokpo.capstonedesign.retrofit2.IngredientAddResponse;
+import com.mokpo.capstonedesign.retrofit2.IngredientUpdateRequest;
+import com.mokpo.capstonedesign.retrofit2.IngredientUpdateResponse;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,12 +42,14 @@ public class IngredientUpdateActivity extends AppCompatActivity {
 
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     public static final int BARCODE_SCAN_REQUEST_CODE = 200;
-
+    private IngredientAdapter adapter;
     public static EditText nameEditText;
     private EditText expiryEditText;
     private Button cameraButton;
     private Button increaseButton;
     private Button decreaseButton;
+
+    private TextView idEditText;
     private TextView quantityTextView;
     private EditText memoEditText;
     private Button updateButton;
@@ -55,6 +60,7 @@ public class IngredientUpdateActivity extends AppCompatActivity {
     private TextView barcodeTextView;
     private int quantity = 0;
 
+    private int id;
     private String name;
     private String memo;
     private String expiry;
@@ -65,8 +71,8 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         // 정보 불러오는 작업 테스트
 
 
-
         setContentView(R.layout.activity_ingredient_update);
+        idEditText = findViewById(R.id.idEditText);
         //barcodeTextView = findViewById(R.id.barcodeEditText);
         nameEditText = findViewById(R.id.nameEditText);
         EditText expiryEditText = findViewById(R.id.expiryEditText);
@@ -78,16 +84,18 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         updateButton = findViewById(R.id.updateButton);
         deleteButton = findViewById(R.id.deleteButton);
 
-
+        id = getIntent().getIntExtra("id", 0);
         name = getIntent().getStringExtra("name");
         expiry = getIntent().getStringExtra("expirationdate");
         quantity = getIntent().getIntExtra("quantity", 0);
         memo = getIntent().getStringExtra("memo");
 
+        idEditText.setText(String.valueOf(id));
         nameEditText.setText(name);
         expiryEditText.setText(expiry);
         memoEditText.setText(memo);
         quantityTextView.setText(String.valueOf(quantity));
+        idEditText.setEnabled(false);
         expiryEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,47 +147,62 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int id = Integer.parseInt(idEditText.getText().toString());
+                String name = nameEditText.getText().toString();
+                String expiry = expiryEditText.getText().toString();
+                int quantity = Integer.parseInt(quantityTextView.getText().toString());
+                String memo = memoEditText.getText().toString();
 
+                IngredientUpdateRequest request = new IngredientUpdateRequest(id, name, expiry, quantity, memo);
+                sendUpdateFoodList(request);
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-            /// 딜리트 버튼 눌렀을 때 동작 정의
+            /// 삭제 버튼 눌렀을 때 동작 정의
 
             }
         });
     }
 
-    public IngredientAddRequest createFoodList(String name, String memo, int quantity, String expiry) {
-        IngredientAddRequest request = new IngredientAddRequest();
-        List<IngredientAddRequest.FoodItem> foodlist = new ArrayList<>();
-        foodlist.add(new IngredientAddRequest.FoodItem(name, memo, quantity, expiry));
+/*    public IngredientUpdateRequest updateFoodList(int id, String name, String memo, int quantity, String expiry) {
+        IngredientUpdateRequest request = new IngredientUpdateRequest();
+        List<IngredientUpdateRequest.FoodItem> foodlist = new ArrayList<>();
+        foodlist.add(new IngredientUpdateRequest.FoodItem(id, name, memo, quantity, expiry));
         request.setFoodlist(foodlist);
         return request;
-    }
+    }*/
 
-    private void sendFoodList(IngredientAddRequest addRequest) {
+    private void sendUpdateFoodList(IngredientUpdateRequest updateRequest) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String accessToken = sharedPreferences.getString("jwt_token", "");
 
         ApiService apiService = ApiClient.getApiService();
 
-        Call<IngredientAddResponse> call = apiService.getInsertfood("Bearer " + accessToken, addRequest);
-        call.enqueue(new Callback<IngredientAddResponse>() {
+        Call<IngredientUpdateResponse> call = apiService.getUpdateFood("Bearer " + accessToken,
+                updateRequest.getId(),
+                updateRequest.getName(),
+                updateRequest.getDate(),
+                updateRequest.getCount(),
+                updateRequest.getMemo());
+
+        call.enqueue(new Callback<IngredientUpdateResponse>() {
             @Override
-            public void onResponse(Call<IngredientAddResponse> call, retrofit2.Response<IngredientAddResponse> response) {
+            public void onResponse(Call<IngredientUpdateResponse> call, retrofit2.Response<IngredientUpdateResponse> response) {
                 if (response.isSuccessful()) {
                     Log.i("MainActivity", "Data posted successfully.");
-                    Toast.makeText(IngredientUpdateActivity.this, "식재료가 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(IngredientUpdateActivity.this, "식재료가 성공적으로 수정되었습니다..", Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
+                    finish();
                 } else {
                     Log.e("MainActivity", "Error posting data: " + response.code());
-                    Toast.makeText(IngredientUpdateActivity.this, "식재료 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(IngredientUpdateActivity.this, "식재료 수정에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<IngredientAddResponse> call, Throwable t) {
+            public void onFailure(Call<IngredientUpdateResponse> call, Throwable t) {
                 Log.e("MainActivity", "Error: " + t.getMessage());
                 Toast.makeText(IngredientUpdateActivity.this, "네트워크에 문제가 있습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
             }

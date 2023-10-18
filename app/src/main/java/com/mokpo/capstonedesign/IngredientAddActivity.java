@@ -19,12 +19,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
 import com.mokpo.capstonedesign.retrofit2.IngredientAddRequest;
 import com.mokpo.capstonedesign.retrofit2.IngredientAddItem;
 import com.mokpo.capstonedesign.retrofit2.IngredientAddResponse;
+import com.mokpo.capstonedesign.retrofit2.IngredientResponse;
+import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientAdapter;
+import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientManagementFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,6 +38,7 @@ import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class IngredientAddActivity extends AppCompatActivity {
 
@@ -60,6 +66,7 @@ public class IngredientAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_add);
+
         //barcodeTextView = findViewById(R.id.barcodeEditText);
         nameEditText = findViewById(R.id.nameEditText);
         EditText expiryEditText = findViewById(R.id.expiryEditText);
@@ -151,6 +158,7 @@ public class IngredientAddActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.i("MainActivity", "Data posted successfully.");
                     Toast.makeText(IngredientAddActivity.this, "식재료가 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     Log.e("MainActivity", "Error posting data: " + response.code());
                     Toast.makeText(IngredientAddActivity.this, "식재료 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();

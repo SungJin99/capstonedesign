@@ -1,5 +1,6 @@
 package com.mokpo.capstonedesign.ui.ingredientManagement;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,7 +32,6 @@ import retrofit2.Response;
 public class IngredientManagementFragment extends Fragment {
     private RecyclerView recyclerView;
     private FragmentIngredientManagementBinding binding;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -48,9 +48,7 @@ public class IngredientManagementFragment extends Fragment {
             }
         });
         fetchFoodList();
-        SwipeController swipeController = new SwipeController(recyclerView);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+
 
 
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -93,4 +91,5 @@ public class IngredientManagementFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }
