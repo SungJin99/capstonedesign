@@ -26,8 +26,12 @@ public interface ApiService {
     Call<IngredientUpdateResponse> getUpdateFood(@Header("Authorization")String token,
                                                  @Field("id") int id,
                                                  @Field("name") String name,
-                                                 @Field("expiry") String expiry,
-                                                 @Field("quantity") int quantity,
-                                                 @Field("memo") String memo);
+                                                 @Field("memo") String memo,
+                                                 @Field("count") int quantity,
+                                                 @Field("date") String date);
+
+    @POST("api/food/del_ingredients/")
+    Call<IngredientDeleteResponse> DeleteFood(@Header("Authorization")String token,
+                                                 @Body DeleteIngredients request);
 }
 

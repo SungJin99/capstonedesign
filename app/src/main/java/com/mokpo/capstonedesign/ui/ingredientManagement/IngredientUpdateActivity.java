@@ -20,6 +20,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.mokpo.capstonedesign.retrofit2.DeleteIngredients;
+import com.mokpo.capstonedesign.retrofit2.IngredientDeleteResponse;
 import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientManagementFragment;
 import com.mokpo.capstonedesign.CameraActivity;
 import com.mokpo.capstonedesign.R;
@@ -160,7 +163,8 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-            /// 삭제 버튼 눌렀을 때 동작 정의
+                String id = idEditText.getText().toString();
+                sendDeleteFood(new String[]{id});
 
             }
         });
@@ -183,9 +187,9 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         Call<IngredientUpdateResponse> call = apiService.getUpdateFood("Bearer " + accessToken,
                 updateRequest.getId(),
                 updateRequest.getName(),
-                updateRequest.getDate(),
+                updateRequest.getMemo(),
                 updateRequest.getCount(),
-                updateRequest.getMemo());
+                updateRequest.getDate());
 
         call.enqueue(new Callback<IngredientUpdateResponse>() {
             @Override
@@ -209,6 +213,36 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         });
     }
 
+    private void sendDeleteFood(String[] ingredientIds) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String accessToken = sharedPreferences.getString("jwt_token", "");
+
+        ApiService apiService = ApiClient.getApiService();
+        DeleteIngredients deleteIngredients = new DeleteIngredients(ingredientIds);
+        Call<IngredientDeleteResponse> call = apiService.DeleteFood("Bearer " + accessToken, deleteIngredients);
+
+        call.enqueue(new Callback<IngredientDeleteResponse>() {
+            @Override
+            public void onResponse(Call<IngredientDeleteResponse> call, retrofit2.Response<IngredientDeleteResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.i("MainActivity", "Data posted successfully.");
+                    Toast.makeText(IngredientUpdateActivity.this, "식재료가 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    //adapter.notifyDataSetChanged();
+                    finish();
+                } else {
+                    Log.e("MainActivity", "Error posting data: " + response.code());
+                    Toast.makeText(IngredientUpdateActivity.this, "식재료 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IngredientDeleteResponse> call, Throwable t) {
+                Log.e("MainActivity", "Error: " + t.getMessage());
+                Toast.makeText(IngredientUpdateActivity.this, "네트워크에 문제가 있습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
     private void openCamera() {
         Intent intent = new Intent(IngredientUpdateActivity.this, CameraActivity.class);
         startActivityForResult(intent, BARCODE_SCAN_REQUEST_CODE);
