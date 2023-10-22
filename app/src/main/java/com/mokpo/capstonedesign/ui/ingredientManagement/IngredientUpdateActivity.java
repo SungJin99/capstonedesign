@@ -3,6 +3,7 @@ package com.mokpo.capstonedesign.ui.ingredientManagement;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -150,22 +152,41 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = Integer.parseInt(idEditText.getText().toString());
-                String name = nameEditText.getText().toString();
-                String expiry = expiryEditText.getText().toString();
-                int quantity = Integer.parseInt(quantityTextView.getText().toString());
-                String memo = memoEditText.getText().toString();
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("수정 확인")
+                        .setMessage("정말 수정하시겠습니까?")
+                        .setPositiveButton("네", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // '네' 버튼을 클릭했을 때 실행할 코드 작성.
+                                int id = Integer.parseInt(idEditText.getText().toString());
+                                String name = nameEditText.getText().toString();
+                                String expiry = expiryEditText.getText().toString();
+                                int quantity = Integer.parseInt(quantityTextView.getText().toString());
+                                String memo = memoEditText.getText().toString();
 
-                IngredientUpdateRequest request = new IngredientUpdateRequest(id, name, expiry, quantity, memo);
-                sendUpdateFoodList(request);
+                                IngredientUpdateRequest request = new IngredientUpdateRequest(id, name, expiry, quantity, memo);
+                                sendUpdateFoodList(request);
+                            }
+                        })
+                        .setNegativeButton("아니오", null)
+                        .show();
             }
         });
-        deleteButton.setOnClickListener(new View.OnClickListener(){
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = idEditText.getText().toString();
-                sendDeleteFood(new String[]{id});
-
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("삭제 확인")
+                        .setMessage("정말 삭제하시겠습니까?")
+                        .setPositiveButton("네", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // '네' 버튼을 클릭했을 때 실행할 코드 작성.
+                                String id = idEditText.getText().toString();
+                                sendDeleteFood(new String[]{id});
+                            }
+                        })
+                        .setNegativeButton("아니오", null)
+                        .show();
             }
         });
     }
