@@ -37,7 +37,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = postList.get(position);
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, PostDetailActivity.class);
+                intent.putExtra("postId", post.getId());
+                mContext.startActivity(intent);
+            }
+        });
         holder.postId.setText(String.valueOf(post.getId()));
         holder.postTitle.setText(post.getTitle());
         holder.postContent.setText(post.getContent());
@@ -64,22 +71,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             postContent = itemView.findViewById(R.id.post_content);
             postDate = itemView.findViewById(R.id.post_date);
             postUser= itemView.findViewById(R.id.post_user);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION && mContext != null){
-                        Intent intent = new Intent(mContext, PostDetailActivity.class);
-                        intent.putExtra("id", postList.get(position).getId());
-                        intent.putExtra("title", postList.get(position).getTitle());
-                        intent.putExtra("content", postList.get(position).getContent());
-                        intent.putExtra("date", postList.get(position).getDate());
-                        intent.putExtra("user_id", postList.get(position).getUser());
-                        intent.putExtra("position", position);
-                        mContext.startActivity(intent);
-                    }
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int position = getAdapterPosition();
+//                    if(position != RecyclerView.NO_POSITION && mContext != null){
+//                        Intent intent = new Intent(mContext, PostDetailActivity.class);
+//                        intent.putExtra("id", postList.get(position).getId());
+//                        intent.putExtra("title", postList.get(position).getTitle());
+//                        intent.putExtra("content", postList.get(position).getContent());
+//                        intent.putExtra("date", postList.get(position).getDate());
+//                        intent.putExtra("user_id", postList.get(position).getUser());
+//                        intent.putExtra("position", position);
+//                        mContext.startActivity(intent);
+//                    }
+//                }
+//            });
         }
 
     }

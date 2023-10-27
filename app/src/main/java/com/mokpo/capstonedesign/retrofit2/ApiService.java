@@ -12,12 +12,13 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiService {
     @POST("api/user/login/")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-
+    //식재료 관리
     @GET("api/food/get/")
     Call<List<IngredientResponse>> getFoodList(@Header("Authorization")String token);
 
@@ -36,10 +37,16 @@ public interface ApiService {
     @POST("api/food/del_ingredients/")
     Call<IngredientDeleteResponse> DeleteFood(@Header("Authorization")String token,
                                                  @Body DeleteIngredients request);
+    // 커뮤니티
     @GET("api/post/list_post/")
     Call<ArrayList<Post>> getPostList(@Header("Authorization")String token);
 
     @POST("api/post/create_post/")
     Call<PostResponse> createPost(@Header("Authorization")String token, @Body PostRequest request);
+    @GET("api/post/get_post/{id}/")
+    Call<Post> getPost(@Path("id") int id);
+
+//    @POST("api/post/update_post/{id}/")
+//    Call<Post> updatePost(@Header("Authorization")String token, @Path("id") int id;
 }
 

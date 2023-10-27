@@ -24,6 +24,10 @@
             android:exported="false"
             android:label="글 작성하기"/>
         <activity
+            android:name=".ui.community.PostUpdateActivity"
+            android:exported="false"
+            android:label="글 수정하기"/>
+        <activity
             android:name=".IngredientAddActivity"
             android:exported="false"
             android:label="식재료 추가" />
