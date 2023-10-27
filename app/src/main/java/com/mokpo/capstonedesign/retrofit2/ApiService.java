@@ -1,5 +1,8 @@
 package com.mokpo.capstonedesign.retrofit2;
 
+import com.mokpo.capstonedesign.ui.community.Post;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,5 +36,10 @@ public interface ApiService {
     @POST("api/food/del_ingredients/")
     Call<IngredientDeleteResponse> DeleteFood(@Header("Authorization")String token,
                                                  @Body DeleteIngredients request);
+    @GET("api/post/list_post/")
+    Call<ArrayList<Post>> getPostList(@Header("Authorization")String token);
+
+    @POST("api/post/create_post/")
+    Call<PostResponse> createPost(@Header("Authorization")String token, @Body PostRequest request);
 }
 

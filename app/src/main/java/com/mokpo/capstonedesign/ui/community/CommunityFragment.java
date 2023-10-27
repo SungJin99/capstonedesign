@@ -1,45 +1,97 @@
 package com.mokpo.capstonedesign.ui.community;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import com.mokpo.capstonedesign.R;
+import com.mokpo.capstonedesign.SwipeController;
 import com.mokpo.capstonedesign.databinding.FragmentCommunityBinding;
+import com.mokpo.capstonedesign.retrofit2.ApiClient;
+import com.mokpo.capstonedesign.retrofit2.ApiService;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mokpo.capstonedesign.IngredientAddActivity;
+import com.mokpo.capstonedesign.R;
+import com.mokpo.capstonedesign.databinding.FragmentIngredientManagementBinding;
+import com.mokpo.capstonedesign.retrofit2.IngredientResponse;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CommunityFragment extends Fragment {
-
+    private RecyclerView recyclerView;
     private FragmentCommunityBinding binding;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         binding = FragmentCommunityBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        Button regButton = view.findViewById(R.id.reg_button);
-        regButton.setOnClickListener(new View.OnClickListener() {
+        View root = binding.getRoot();
+        recyclerView = binding.communtRecyclerview;
+        root.findViewById(R.id.reg_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Execute code to navigate to NotificationsAddActivity
-                Intent intent = new Intent(getActivity(), CommunityActivity.class);
+                // IngredientAddActivity로 이동하는 코드
+                Intent intent = new Intent(getActivity(), PostAddActivity.class);
                 startActivity(intent);
             }
         });
+        fetchPostList();
+
+
+
+        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        return root;
     }
+
+    private void fetchPostList() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String accessToken = sharedPreferences.getString("jwt_token", "");
+        System.out.println(accessToken);
+        ApiService foodApi = ApiClient.getApiService();
+        Call<ArrayList<Post>> call = foodApi.getPostList("Bearer " + accessToken);
+        call.enqueue(new Callback<ArrayList<Post>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<Post> postList = response.body();
+                    displayPostList(postList);
+                } else {
+                    // Error handling
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
+                // Error handling
+            }
+        });
+    }
+
+    private void displayPostList(ArrayList<Post> postList) {
+        RecyclerView.Adapter adapter = new PostAdapter(requireActivity(), postList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
 }
-
-
-
-
