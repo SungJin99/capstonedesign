@@ -46,7 +46,13 @@ public interface ApiService {
     @GET("api/post/get_post/{id}/")
     Call<Post> getPost(@Path("id") int id);
 
-//    @POST("api/post/update_post/{id}/")
-//    Call<Post> updatePost(@Header("Authorization")String token, @Path("id") int id;
+    @FormUrlEncoded
+    @POST("api/post/update_post/{id}/")
+    Call<Post> updatePost(@Header("Authorization")String token, @Path("id") int id,
+                          @Field("title")String title,
+                          @Field("content")String content);
+
+    @POST("api/post/del_post/{id}/")
+    Call<Void> deletePost(@Header("Authorization")String token, @Path("id") int id);
 }
 
