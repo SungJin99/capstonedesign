@@ -107,6 +107,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         .show();
             }
         });
+
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +128,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     Post post = response.body();
                     List<Comment> comments = post.getComments();
                     System.out.println(comments.toString());
-                    CommentAdapter commentAdapter = new CommentAdapter(comments);
+                    CommentAdapter commentAdapter = new CommentAdapter(comments, PostDetailActivity.this);
                     commentRecyclerView.setAdapter(commentAdapter);
                     // 받아온 게시글 정보를 화면에 표시합니다.
 //                    TextView titleView = findViewById(R.id.title_tv);
@@ -190,9 +191,10 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void displayComments(List<Comment> comments) {
-        CommentAdapter adapter = new CommentAdapter(comments);
+        CommentAdapter adapter = new CommentAdapter(comments, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         commentRecyclerView.setLayoutManager(layoutManager);
         commentRecyclerView.setAdapter(adapter);
     }
+
 }

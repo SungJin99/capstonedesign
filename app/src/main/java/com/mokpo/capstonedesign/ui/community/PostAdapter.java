@@ -54,7 +54,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         if (holder.commentRecyclerView != null) {
             List<Comment> comments = post.getComments();
             if (comments != null) {
-                CommentAdapter commentAdapter = new CommentAdapter(comments);
+                CommentAdapter commentAdapter = new CommentAdapter(comments, mContext);
                 holder.commentRecyclerView.setAdapter(commentAdapter);
             } else {
                 // 댓글이 없는 경우의 처리

@@ -56,6 +56,7 @@ public interface ApiService {
     @POST("api/post/del_post/{id}/")
     Call<Void> deletePost(@Header("Authorization")String token, @Path("id") int id);
 
-
+    @POST("api/post/del_comment/{id}/")
+    Call<Void> deleteComment(@Header("Authorization")String token, @Path("id")int id);
 }
 
