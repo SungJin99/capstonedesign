@@ -1,5 +1,6 @@
 package com.mokpo.capstonedesign.retrofit2;
 
+import com.mokpo.capstonedesign.ui.community.Comment;
 import com.mokpo.capstonedesign.ui.community.Post;
 
 import java.util.ArrayList;
@@ -54,5 +55,7 @@ public interface ApiService {
 
     @POST("api/post/del_post/{id}/")
     Call<Void> deletePost(@Header("Authorization")String token, @Path("id") int id);
+
+
 }
 

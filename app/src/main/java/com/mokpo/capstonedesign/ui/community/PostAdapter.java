@@ -51,6 +51,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.postContent.setText(post.getContent());
         holder.postDate.setText(post.getDate());
         holder.postUser.setText(String.valueOf(post.getUser()));
+        if (holder.commentRecyclerView != null) {
+            List<Comment> comments = post.getComments();
+            if (comments != null) {
+                CommentAdapter commentAdapter = new CommentAdapter(comments);
+                holder.commentRecyclerView.setAdapter(commentAdapter);
+            } else {
+                // 댓글이 없는 경우의 처리
+                // 예: 댓글이 없습니다.
+            }
+        } else {
+            // comment_recyclerview를 찾지 못한 경우의 처리
+            // 예: 에러 메시지를 출력하거나 다른 동작을 수행합니다.
+        }
     }
 
     @Override
@@ -65,6 +78,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         TextView postDate;
         TextView postUser;
 
+        RecyclerView commentRecyclerView;
+
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             postId = itemView.findViewById(R.id.post_id);
@@ -72,6 +87,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             postContent = itemView.findViewById(R.id.post_content);
             postDate = itemView.findViewById(R.id.post_date);
             postUser= itemView.findViewById(R.id.post_user);
+          //  commentRecyclerView = itemView.findViewById(R.id.comment_recyclerview);
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {

@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.common.api.internal.ApiKey;
 import com.mokpo.capstonedesign.IngredientAddActivity;
@@ -21,6 +23,9 @@ import com.mokpo.capstonedesign.R;
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
 import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientUpdateActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +45,8 @@ public class PostDetailActivity extends AppCompatActivity {
     private String content;
     private String Date;
     private int user;
+    private RecyclerView commentRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +61,8 @@ public class PostDetailActivity extends AppCompatActivity {
             return;
         }
         loadPostDetail(postId);
+
+        commentRecyclerView = findViewById(R.id.comment_recyclerview);
         updateButton = findViewById(R.id.update_button);
         deleteButton = findViewById(R.id.delete_button);
         titleEditText = findViewById(R.id.title_tv);
@@ -116,15 +125,20 @@ public class PostDetailActivity extends AppCompatActivity {
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if (response.isSuccessful()) {
                     Post post = response.body();
-
+                    List<Comment> comments = post.getComments();
+                    System.out.println(comments.toString());
+                    CommentAdapter commentAdapter = new CommentAdapter(comments);
+                    commentRecyclerView.setAdapter(commentAdapter);
                     // 받아온 게시글 정보를 화면에 표시합니다.
-                    TextView titleView = findViewById(R.id.title_tv);
-                    TextView contentView = findViewById(R.id.content_tv);
-                    TextView dateView = findViewById(R.id.date_tv);
-                    titleView.setText(post.getTitle());
-                    contentView.setText(post.getContent());
-                    dateView.setText(post.getDate());
-
+//                    TextView titleView = findViewById(R.id.title_tv);
+//                    TextView contentView = findViewById(R.id.content_tv);
+//                    TextView dateView = findViewById(R.id.date_tv);
+//                    titleView.setText(post.getTitle());
+//                    contentView.setText(post.getContent());
+//                    dateView.setText(post.getDate());
+                    displayPost(post);
+                    displayComments(comments);
+                   // displayComments(comments);
                     Intent intent = getIntent();
                     intent.putExtra("title", post.getTitle());
                     intent.putExtra("content", post.getContent());
@@ -165,5 +179,20 @@ public class PostDetailActivity extends AppCompatActivity {
                 Toast.makeText(PostDetailActivity.this, "에러: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void displayPost(Post post) {
+        TextView titleView = findViewById(R.id.title_tv);
+        TextView contentView = findViewById(R.id.content_tv);
+        TextView dateView = findViewById(R.id.date_tv);
+        titleView.setText(post.getTitle());
+        contentView.setText(post.getContent());
+        dateView.setText(post.getDate());
+    }
+
+    private void displayComments(List<Comment> comments) {
+        CommentAdapter adapter = new CommentAdapter(comments);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        commentRecyclerView.setLayoutManager(layoutManager);
+        commentRecyclerView.setAdapter(adapter);
     }
 }

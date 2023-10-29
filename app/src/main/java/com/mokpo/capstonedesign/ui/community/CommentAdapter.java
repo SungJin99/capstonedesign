@@ -18,71 +18,49 @@ import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientUpdateActivity
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
-    Context mContext;
-    private static ArrayList<Comment> commentList;
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
-    public CommentAdapter(Context context, ArrayList<Comment> commentList) {
-        this.mContext = context;
-        this.commentList = commentList;
+    private List<Comment> comments;
+
+    public CommentAdapter(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @NonNull
     @Override
-    public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.post_list_item, parent, false);
-        return new CommentViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_community_comment, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
-        Comment comment = commentList.get(position);
-       // holder.postId.setText(String.valueOf(post.getId()));
-       // holder.postTitle.setText(post.getTitle());
-      //  holder.postContent.setText(post.getContent());
-       // holder.postDate.setText(post.getDate());
-       // holder.postUser.setText(String.valueOf(post.getUser()));
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Comment comment = comments.get(position);
+        holder.bind(comment);
+//        holder.writer.setText(comment.getUser());
+//        holder.content.setText(comment.getContent());
+//        holder.date.setText(comment.getDate());
     }
 
     @Override
     public int getItemCount() {
-        return commentList.size();
+        return comments.size();
     }
 
-    public class CommentViewHolder extends RecyclerView.ViewHolder {
-        TextView postId;
-        TextView postTitle;
-        TextView postContent;
-        TextView postDate;
-        TextView postUser;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView date;
+        private TextView writer;
+        private TextView content;
 
-        public CommentViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            postId = itemView.findViewById(R.id.post_id);
-            postTitle = itemView.findViewById(R.id.post_title);
-            postContent = itemView.findViewById(R.id.post_content);
-            postDate = itemView.findViewById(R.id.post_date);
-            postUser= itemView.findViewById(R.id.post_user);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION && mContext != null){
-                        Intent intent = new Intent(mContext, PostDetailActivity.class);
-                       // intent.putExtra("id", postList.get(position).getId());
-                       // intent.putExtra("title", postList.get(position).getTitle());
-                       // intent.putExtra("content", postList.get(position).getContent());
-                       // intent.putExtra("date", postList.get(position).getDate());
-                      //  intent.putExtra("user_id", postList.get(position).getUser());
-                      //  intent.putExtra("position", position);
-                        mContext.startActivity(intent);
-                    }
-                }
-            });
+            content = itemView.findViewById(R.id.cmt_content_tv);
+            writer = itemView.findViewById(R.id.cmt_userid_tv);
+           // date = itemView.findViewById(R.id.cmt_date_tv);
         }
-
+        public void bind(Comment comment){
+            content.setText(comment.getContent());
+            writer.setText(String.valueOf(comment.getUser()));
+        }
     }
 }
-
