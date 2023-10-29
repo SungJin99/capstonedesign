@@ -31,8 +31,8 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/cmt_content_tv"
+    <EditText
+        android:id="@+id/cmt_content_et"
         android:layout_width="match_parent"
         android:textColor="#333333"
         android:layout_height="wrap_content"

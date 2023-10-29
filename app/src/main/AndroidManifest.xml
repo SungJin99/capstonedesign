@@ -28,6 +28,10 @@
             android:exported="false"
             android:label="글 수정하기"/>
         <activity
+            android:name=".ui.community.CommentUpdate"
+            android:exported="false"
+            android:label="댓글 수정하기"/>
+        <activity
             android:name=".IngredientAddActivity"
             android:exported="false"
             android:label="식재료 추가" />
