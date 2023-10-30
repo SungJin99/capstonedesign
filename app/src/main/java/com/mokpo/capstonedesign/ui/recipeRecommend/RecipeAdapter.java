@@ -48,12 +48,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             @Override
             public void onClick(View v) {
                 String recipeName = ((TextView) v).getText().toString();
-                try {
-                    String encodedRecipeName = URLEncoder.encode(recipeName, "UTF-8");  // 레시피 이름을 URL 인코딩합니다.
-                    recipeViewModel.fetchRecipeDetails(encodedRecipeName);  // URL 인코딩된 레시피 이름을 사용하여 요청을 보냅니다.
-                } catch (UnsupportedEncodingException e) {
-                    Log.e("ERROR", "URL encoding error", e);
-                }
+                recipeViewModel.fetchRecipeDetails(recipeName);  // 레시피 이름을 그대로 사용하여 요청을 보냅니다.
             }
         });
 

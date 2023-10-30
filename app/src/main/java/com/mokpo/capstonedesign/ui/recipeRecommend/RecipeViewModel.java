@@ -70,34 +70,27 @@ public class RecipeViewModel extends ViewModel {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String accessToken = sharedPreferences.getString("jwt_token", "");
 
-        String encodedRecipeName;  // URL 인코딩된 레시피 이름을 저장할 변수를 선언합니다.
-        try {
-            encodedRecipeName = URLEncoder.encode(recipeName, "UTF-8");  // 레시피 이름을 URL 인코딩합니다.
-        } catch (UnsupportedEncodingException e) {
-            Log.e("ERROR", "URL encoding error", e);
-            return;
-        }
+        Call<RecipeDetail> call = apiService.getRecipeDetail("Bearer " + accessToken, recipeName);  // 받은 레시피 이름을 그대로 사용하여 요청을 보냅니다.
 
-        Call<RecipeDetail> call = apiService.getRecipeDetail("Bearer " + accessToken, encodedRecipeName);  // URL 인코딩된 레시피 이름을 사용하여 요청을 보냅니다.
-            call.enqueue(new Callback<RecipeDetail>() {
-                @Override
-                public void onResponse(Call<RecipeDetail> call, Response<RecipeDetail> response) {
-                    if (response.isSuccessful()) {
-                        RecipeDetail recipeDetail = response.body();
-                        // 상세 정보를 LiveData에 설정하는 로직
-                        recipeDetailLiveData.setValue(recipeDetail);
-                    } else {
-                        // 에러 처리
-                        Log.e("ERROR", "Server response error");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<RecipeDetail> call, Throwable t) {
+        call.enqueue(new Callback<RecipeDetail>() {
+            @Override
+            public void onResponse(Call<RecipeDetail> call, Response<RecipeDetail> response) {
+                if (response.isSuccessful()) {
+                    RecipeDetail recipeDetail = response.body();
+                    // 상세 정보를 LiveData에 설정하는 로직
+                    recipeDetailLiveData.setValue(recipeDetail);
+                } else {
                     // 에러 처리
-                    Log.e("ERROR", "Network request error");
+                    Log.e("ERROR", "Server response error");
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(Call<RecipeDetail> call, Throwable t) {
+                // 에러 처리
+                Log.e("ERROR", "Network request error");
+            }
+        });
     }
 
 
