@@ -5,8 +5,7 @@
     android:padding="16dp"
     android:layout_margin="16dp"
     android:background="#eeeeee"
-    android:orientation="vertical"
-    android:paddingLeft="32dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,17 +29,35 @@
             android:text="date" />
 
     </LinearLayout>
-
     <EditText
         android:id="@+id/cmt_content_et"
         android:layout_width="match_parent"
         android:textColor="#333333"
         android:layout_height="wrap_content"
         android:text="content" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_margin="16dp"
-        android:background="#000000"/>
+        android:background="#000000"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/comment_update_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수정" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

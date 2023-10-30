@@ -52,6 +52,17 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comment comment = comments.get(position);
         holder.bind(comment);
+        holder.cmtUpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CommentUpdate.class);
+                intent.putExtra("postId", comment.getBoard());
+                intent.putExtra("id", comment.getId());
+                intent.putExtra("content", comment.getContent());
+                System.out.println(comment.toString());
+                context.startActivity(intent);
+            }
+        });
 //        holder.writer.setText(comment.getUser());
 //        holder.content.setText(comment.getContent());
 //        holder.date.setText(comment.getDate());
@@ -83,6 +94,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         private TextView writer;
         private TextView content;
         private Button cmtDeleteButton;
+
+        private Button cmtUpdateButton;
         //private TextView
 
         public ViewHolder(@NonNull View itemView) {
@@ -91,6 +104,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             writer = itemView.findViewById(R.id.cmt_userid_tv);
             id = itemView.findViewById(R.id.cmt_date_tv);
             cmtDeleteButton = itemView.findViewById(R.id.cmt_delete_button);
+            cmtUpdateButton =itemView.findViewById(R.id.cmt_update_button);
         }
         public void bind(Comment comment){
             content.setText(comment.getContent());

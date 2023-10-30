@@ -59,11 +59,23 @@ public interface ApiService {
     @POST("api/post/del_comment/{id}/")
     Call<Void> deleteComment(@Header("Authorization")String token, @Path("id")int id);
 
+    @FormUrlEncoded
+    @POST("api/post/get_post/{id}/comments/")
+    Call<Void> createComment(@Header("Authorization")String token,@Path("id")int id,
+                                        @Field("content")String content);
+
+    @FormUrlEncoded
+    @POST("api/post/{board}/comment/{id}/update/")
+    Call<Void> updateComment(@Header("Authorization")String token, @Path("board")int board,
+                             @Path("id")int id,
+                             @Field("content")String content);
+
     //레시피 추천
     @GET("api/food/recommend/")
     Call<RecipeResponse> getRecommendedRecipes(@Header("Authorization")String token);
 
     @GET("api/food/recipe_detail/{name}")
     Call<RecipeDetail> getRecipeDetail(@Header("Authorization")String token, @Path("name") String recipeName);
+
 }
 

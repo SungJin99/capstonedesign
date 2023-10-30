@@ -22,7 +22,11 @@ import com.mokpo.capstonedesign.IngredientAddActivity;
 import com.mokpo.capstonedesign.R;
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
+import com.mokpo.capstonedesign.retrofit2.IngredientAddRequest;
+import com.mokpo.capstonedesign.retrofit2.IngredientAddResponse;
 import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientUpdateActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PostDetailActivity extends AppCompatActivity {
-    private EditText titleEditText;
+    private TextView titleEditText;
     private EditText contentEditText;
 
     private EditText commentEditText;
@@ -111,7 +115,8 @@ public class PostDetailActivity extends AppCompatActivity {
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String content = contentEditText.getText().toString();
+                sendComment(postId, content);
             }
         });
     }
@@ -196,5 +201,31 @@ public class PostDetailActivity extends AppCompatActivity {
         commentRecyclerView.setLayoutManager(layoutManager);
         commentRecyclerView.setAdapter(adapter);
     }
+    private void sendComment(int postId, String content) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String accessToken = sharedPreferences.getString("jwt_token", "");
 
+        ApiService apiService = ApiClient.getApiService();
+
+        Call<Void> call = apiService.createComment("Bearer " + accessToken, postId, content);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.i("MainActivity", "Data posted successfully.");
+                    Toast.makeText(PostDetailActivity.this, "댓글이 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Log.e("MainActivity", "Error posting data: " + response.code());
+                    Toast.makeText(PostDetailActivity.this, "댓글 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("MainActivity", "Error: " + t.getMessage());
+                Toast.makeText(PostDetailActivity.this, "네트워크에 문제가 있습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
