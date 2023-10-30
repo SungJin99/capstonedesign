@@ -58,5 +58,12 @@ public interface ApiService {
 
     @POST("api/post/del_comment/{id}/")
     Call<Void> deleteComment(@Header("Authorization")String token, @Path("id")int id);
+
+    //레시피 추천
+    @GET("api/food/recommend/")
+    Call<RecipeResponse> getRecommendedRecipes(@Header("Authorization")String token);
+
+    @GET("api/food/recipe_detail/{name}")
+    Call<RecipeDetail> getRecipeDetail(@Header("Authorization")String token, @Path("name") String recipeName);
 }
 

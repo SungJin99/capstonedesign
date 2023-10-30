@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.mokpo.capstonedesign.ui.recipeRecommend.DashboardFragment"
+        android:name="com.mokpo.capstonedesign.ui.recipeRecommend.RecipeFragment"
         android:label="@string/recipe_recommend"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/recipe_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
