@@ -91,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // loadingProgressBar.setVisibility(View.VISIBLE);
 
                 String userid = useridEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
@@ -113,11 +112,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-//    private void updateUiWithUser(LoggedInUserView model) {
-//        String welcome = getString(R.string.welcome) + model.getDisplayName();
-//        // TODO : initiate successful logged in experience
-//        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-//    }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();

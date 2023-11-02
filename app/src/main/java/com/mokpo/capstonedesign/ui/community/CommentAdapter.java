@@ -40,10 +40,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         this.comments = comments;
         this.context = context;
     }
-    public void updateCommentAt(int position, Comment updatedComment) {
-        comments.set(position, updatedComment);
-        notifyItemChanged(position);
-    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -66,9 +62,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 context.startActivity(intent);
             }
         });
-//        holder.writer.setText(comment.getUser());
-//        holder.content.setText(comment.getContent());
-//        holder.date.setText(comment.getDate());
+
         holder.cmtDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { new AlertDialog.Builder(v.getContext())

@@ -40,7 +40,6 @@ public class PostAddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_community_add);
         titleEditText = findViewById(R.id.title_et);
         contentEditText = findViewById(R.id.content_et);
-        //commentEditText = findViewById(R.id.comment_et);
         regButton = findViewById(R.id.reg_button);
 
         regButton.setOnClickListener(new View.OnClickListener() {

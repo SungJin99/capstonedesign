@@ -87,23 +87,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             postContent = itemView.findViewById(R.id.post_content);
             postDate = itemView.findViewById(R.id.post_date);
             postUser= itemView.findViewById(R.id.post_user);
-          //  commentRecyclerView = itemView.findViewById(R.id.comment_recyclerview);
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int position = getAdapterPosition();
-//                    if(position != RecyclerView.NO_POSITION && mContext != null){
-//                        Intent intent = new Intent(mContext, PostDetailActivity.class);
-//                        intent.putExtra("id", postList.get(position).getId());
-//                        intent.putExtra("title", postList.get(position).getTitle());
-//                        intent.putExtra("content", postList.get(position).getContent());
-//                        intent.putExtra("date", postList.get(position).getDate());
-//                        intent.putExtra("user_id", postList.get(position).getUser());
-//                        intent.putExtra("position", position);
-//                        mContext.startActivity(intent);
-//                    }
-//                }
-//            });
+
         }
 
     }

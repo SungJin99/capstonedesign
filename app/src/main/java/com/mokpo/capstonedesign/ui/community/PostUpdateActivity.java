@@ -121,9 +121,5 @@ public class PostUpdateActivity extends AppCompatActivity {
             }
         });
     }
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        loadPostDetail(postId);
-//    }
+
 }

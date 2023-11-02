@@ -113,8 +113,6 @@ public class CameraActivity extends AppCompatActivity {
                         Log.e("CameraActivity", "API request failed: " + errorMessage);
                     }
                 });
-                //  setResult(Activity.RESULT_OK, resultIntent);
-                // resultIntent.putExtra("SCAN_RESULT", barnum);
 
             }
         });
@@ -127,8 +125,7 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void barcodeResult(BarcodeResult result) {
                 String barcodeValue = result.getText();
-                // 바코드에 해당하는 내용의 정보를 처리하면 됩니다.
-                //Toast.makeText(CameraActivity.this, "바코드: " + barcodeValue, Toast.LENGTH_SHORT).show();
+
                 onScanComplete(barcodeValue);
             }
 

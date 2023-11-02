@@ -133,13 +133,6 @@ public class PostDetailActivity extends AppCompatActivity {
                     System.out.println(comments.toString());
                     CommentAdapter commentAdapter = new CommentAdapter(comments, PostDetailActivity.this);
                     commentRecyclerView.setAdapter(commentAdapter);
-                    // 받아온 게시글 정보를 화면에 표시합니다.
-//                    TextView titleView = findViewById(R.id.title_tv);
-//                    TextView contentView = findViewById(R.id.content_tv);
-//                    TextView dateView = findViewById(R.id.date_tv);
-//                    titleView.setText(post.getTitle());
-//                    contentView.setText(post.getContent());
-//                    dateView.setText(post.getDate());
                     displayPost(post);
                     displayComments(comments);
                     Intent intent = getIntent();
@@ -231,7 +224,6 @@ public class PostDetailActivity extends AppCompatActivity {
         super.onResume();
         Intent intent = getIntent();
         int postId = intent.getIntExtra("postId", -1);
-        // 게시글 상세 정보 불러오기
         loadPostDetail(postId);
     }
 

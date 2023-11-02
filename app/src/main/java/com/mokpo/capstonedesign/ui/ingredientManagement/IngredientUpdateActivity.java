@@ -196,14 +196,6 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         });
     }
 
-/*    public IngredientUpdateRequest updateFoodList(int id, String name, String memo, int quantity, String expiry) {
-        IngredientUpdateRequest request = new IngredientUpdateRequest();
-        List<IngredientUpdateRequest.FoodItem> foodlist = new ArrayList<>();
-        foodlist.add(new IngredientUpdateRequest.FoodItem(id, name, memo, quantity, expiry));
-        request.setFoodlist(foodlist);
-        return request;
-    }*/
-
     private void sendUpdateFoodList(IngredientUpdateRequest updateRequest) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String accessToken = sharedPreferences.getString("jwt_token", "");
