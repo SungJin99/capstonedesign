@@ -79,7 +79,6 @@ public class PostUpdateActivity extends AppCompatActivity {
                     contentEdit.setText(post.getContent());
                     Log.i("MainActivity", "Data posted successfully.");
                     Toast.makeText(PostUpdateActivity.this, "게시글이 성공적으로 수정되었습니다.", Toast.LENGTH_SHORT).show();
-                    //adapter.notifyDataSetChanged();
                     finish();
                 } else {
                     Toast.makeText(PostUpdateActivity.this, "게시글 수정 실패: " + response.code(), Toast.LENGTH_SHORT).show();
@@ -122,4 +121,9 @@ public class PostUpdateActivity extends AppCompatActivity {
             }
         });
     }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        loadPostDetail(postId);
+//    }
 }

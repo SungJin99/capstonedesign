@@ -25,5 +25,29 @@ public class IngredientResponse {
     public int getCount() { return count; }
     public String getDate() { return date; }
     public int getUser() { return user; }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
+    }
+
 }
 

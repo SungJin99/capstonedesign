@@ -1,5 +1,8 @@
 package com.mokpo.capstonedesign.ui.community;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +13,9 @@ import android.view.ViewGroup;
 import com.mokpo.capstonedesign.databinding.FragmentCommunityBinding;
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
@@ -25,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CommunityFragment extends Fragment {
+    private static final int REQUEST_COMMENT_UPDATE = 1;
     private RecyclerView recyclerView;
     private FragmentCommunityBinding binding;
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,13 +49,12 @@ public class CommunityFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         fetchPostList();
 
-
-
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
+
 
     private void fetchPostList() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -86,5 +92,9 @@ public class CommunityFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchPostList();
+    }
 }

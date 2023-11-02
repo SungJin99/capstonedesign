@@ -38,7 +38,6 @@ import retrofit2.Response;
 public class PostDetailActivity extends AppCompatActivity {
     private TextView titleEditText;
     private EditText contentEditText;
-
     private EditText commentEditText;
     private TextView dateTextView;
     private Button regButton;
@@ -80,7 +79,6 @@ public class PostDetailActivity extends AppCompatActivity {
         Date = getIntent().getStringExtra("date");
         user = getIntent().getIntExtra("user_id", 0);
 
-
         titleEditText.setText(title);
         contentEditText.setText(content);
         dateTextView.setText(Date);
@@ -115,8 +113,8 @@ public class PostDetailActivity extends AppCompatActivity {
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String content = contentEditText.getText().toString();
-                sendComment(postId, content);
+                String commentContent  = commentEditText.getText().toString();
+                sendComment(postId, commentContent);
             }
         });
     }
@@ -144,7 +142,6 @@ public class PostDetailActivity extends AppCompatActivity {
 //                    dateView.setText(post.getDate());
                     displayPost(post);
                     displayComments(comments);
-                   // displayComments(comments);
                     Intent intent = getIntent();
                     intent.putExtra("title", post.getTitle());
                     intent.putExtra("content", post.getContent());
@@ -214,7 +211,8 @@ public class PostDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.i("MainActivity", "Data posted successfully.");
                     Toast.makeText(PostDetailActivity.this, "댓글이 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
-                    finish();
+                    commentEditText.setText("");
+                    loadPostDetail(postId);
                 } else {
                     Log.e("MainActivity", "Error posting data: " + response.code());
                     Toast.makeText(PostDetailActivity.this, "댓글 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
@@ -228,4 +226,13 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        int postId = intent.getIntExtra("postId", -1);
+        // 게시글 상세 정보 불러오기
+        loadPostDetail(postId);
+    }
+
 }

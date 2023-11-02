@@ -1,6 +1,7 @@
 package com.mokpo.capstonedesign.ui.ingredientManagement;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -21,10 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mokpo.capstonedesign.retrofit2.DeleteIngredients;
 import com.mokpo.capstonedesign.retrofit2.IngredientDeleteResponse;
+import com.mokpo.capstonedesign.retrofit2.IngredientResponse;
 import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientManagementFragment;
 import com.mokpo.capstonedesign.CameraActivity;
 import com.mokpo.capstonedesign.R;
@@ -34,6 +37,7 @@ import com.mokpo.capstonedesign.retrofit2.IngredientAddRequest;
 import com.mokpo.capstonedesign.retrofit2.IngredientAddResponse;
 import com.mokpo.capstonedesign.retrofit2.IngredientUpdateRequest;
 import com.mokpo.capstonedesign.retrofit2.IngredientUpdateResponse;
+import com.mokpo.capstonedesign.ui.recipeRecommend.RecipeAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +46,7 @@ import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class IngredientUpdateActivity extends AppCompatActivity {
 
@@ -69,14 +74,13 @@ public class IngredientUpdateActivity extends AppCompatActivity {
     private String name;
     private String memo;
     private String expiry;
-
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 정보 불러오는 작업 테스트
-
-
         setContentView(R.layout.activity_ingredient_update);
+
         idEditText = findViewById(R.id.idEditText);
         //barcodeTextView = findViewById(R.id.barcodeEditText);
         nameEditText = findViewById(R.id.nameEditText);
@@ -183,6 +187,7 @@ public class IngredientUpdateActivity extends AppCompatActivity {
                                 // '네' 버튼을 클릭했을 때 실행할 코드 작성.
                                 String id = idEditText.getText().toString();
                                 sendDeleteFood(new String[]{id});
+
                             }
                         })
                         .setNegativeButton("아니오", null)
@@ -213,12 +218,12 @@ public class IngredientUpdateActivity extends AppCompatActivity {
                 updateRequest.getDate());
 
         call.enqueue(new Callback<IngredientUpdateResponse>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<IngredientUpdateResponse> call, retrofit2.Response<IngredientUpdateResponse> response) {
                 if (response.isSuccessful()) {
                     Log.i("MainActivity", "Data posted successfully.");
                     Toast.makeText(IngredientUpdateActivity.this, "식재료가 성공적으로 수정되었습니다..", Toast.LENGTH_SHORT).show();
-                    adapter.notifyDataSetChanged();
                     finish();
                 } else {
                     Log.e("MainActivity", "Error posting data: " + response.code());
@@ -243,12 +248,12 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         Call<IngredientDeleteResponse> call = apiService.DeleteFood("Bearer " + accessToken, deleteIngredients);
 
         call.enqueue(new Callback<IngredientDeleteResponse>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<IngredientDeleteResponse> call, retrofit2.Response<IngredientDeleteResponse> response) {
                 if (response.isSuccessful()) {
                     Log.i("MainActivity", "Data posted successfully.");
                     Toast.makeText(IngredientUpdateActivity.this, "식재료가 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                    //adapter.notifyDataSetChanged();
                     finish();
                 } else {
                     Log.e("MainActivity", "Error posting data: " + response.code());
@@ -285,5 +290,6 @@ public class IngredientUpdateActivity extends AppCompatActivity {
             }
         }
     }
+
 
 }

@@ -40,7 +40,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         this.comments = comments;
         this.context = context;
     }
-
+    public void updateCommentAt(int position, Comment updatedComment) {
+        comments.set(position, updatedComment);
+        notifyItemChanged(position);
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -74,7 +77,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     .setPositiveButton("네", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // '네' 버튼을 클릭했을 때 실행할 코드 작성.
-                            deleteComment(comment.getId());
+                            deleteComment(comment.getId(), position);
                             System.out.println(comment.getId());
                         }
                     })
@@ -112,7 +115,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             id.setText(String.valueOf(comment.getId()));
         }
     }
-    private void deleteComment(int commentId){
+    private void deleteComment(int commentId, int position){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String accessToken = sharedPreferences.getString("jwt_token", "");
 
@@ -125,7 +128,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 if (response.isSuccessful()) {
                     Log.i("MainActivity", "Data posted successfully.");
                     Toast.makeText(context, "댓글이 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                    notifyDataSetChanged();  // Refresh adapter data after deletion.
+                    comments.remove(position); // 리스트에서 해당 댓글 삭제
+                    notifyItemRemoved(position);  // Refresh adapter data after deletion.
                 } else {
                     Toast.makeText(context, "댓글 삭제 실패: " + response.code(), Toast.LENGTH_SHORT).show();
                 }

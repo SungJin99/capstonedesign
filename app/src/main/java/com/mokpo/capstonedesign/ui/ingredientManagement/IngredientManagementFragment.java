@@ -83,10 +83,15 @@ public class IngredientManagementFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchFoodList();
+    }
 }

@@ -36,7 +36,6 @@ public class CommentUpdate extends AppCompatActivity{
         content = getIntent().getStringExtra("content");
         board = getIntent().getIntExtra("postId", 0);
 
-
         commentEditText.setText(content);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +59,7 @@ public class CommentUpdate extends AppCompatActivity{
                 if (response.isSuccessful()) {
                     Log.i("MainActivity", "Data posted successfully.");
                     Toast.makeText(CommentUpdate.this, "댓글이 성공적으로 수정되었습니다.", Toast.LENGTH_SHORT).show();
+
                     finish();
                 } else {
                     Log.e("MainActivity", "Error posting data: " + response.code());
