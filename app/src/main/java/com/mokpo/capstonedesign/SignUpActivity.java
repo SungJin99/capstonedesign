@@ -101,17 +101,17 @@ public class SignUpActivity extends AppCompatActivity {
                 // 회원가입 정보 유효성 검사
                 if (userId.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                } else if (!password.equals(confirmPassword)) {
-                    Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                } else if (!isValidEmail(email)) {
-                    Toast.makeText(SignUpActivity.this, "올바른 이메일 형식이 아닙니다.", Toast.LENGTH_SHORT).show();
                 } else if (!isValidUserId(userId)) {
                     Toast.makeText(SignUpActivity.this, "아이디에 특수 문자는 사용할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 } else if (isDuplicated == null) {
                     Toast.makeText(SignUpActivity.this, "아이디 중복 확인을 해주세요.", Toast.LENGTH_SHORT).show();
                 } else if (isDuplicated == true) {
                     Toast.makeText(SignUpActivity.this, "아이디가 중복되었습니다. 다른 아이디를 입력하세요.", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (!password.equals(confirmPassword)) {
+                    Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                } else if (!isValidEmail(email)) {
+                    Toast.makeText(SignUpActivity.this, "올바른 이메일 형식이 아닙니다.", Toast.LENGTH_SHORT).show();
+                }  else {
                     // 쓰레드풀 실행
                     executorService.execute(() -> {
                         try {

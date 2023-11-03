@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import com.mokpo.capstonedesign.IngredientAddActivity;
 import com.mokpo.capstonedesign.R;
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
@@ -47,10 +48,16 @@ public class PostAddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = titleEditText.getText().toString();
                 String content = contentEditText.getText().toString();
-
-
+                if (title.isEmpty() || content.isEmpty()) {
+                    Toast.makeText(PostAddActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if(title.isEmpty()){
+                    Toast.makeText(PostAddActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if(content.isEmpty()){
+                    Toast.makeText(PostAddActivity.this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else{
                 PostRequest request = new PostRequest(title, content);
-                createPost(request);
+                createPost(request);}
+
             }
         });
     }

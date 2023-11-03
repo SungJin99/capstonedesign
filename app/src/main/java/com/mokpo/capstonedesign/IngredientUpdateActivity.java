@@ -123,9 +123,12 @@ public class IngredientUpdateActivity extends AppCompatActivity {
                 String expiry = expiryEditText.getText().toString();
                 int quantity = Integer.parseInt(quantityTextView.getText().toString());
                 String memo = memoEditText.getText().toString();
-
+                if (name.isEmpty() || expiry.isEmpty() || quantity == 0 || memo.isEmpty()) {
+                    Toast.makeText(IngredientUpdateActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else{
                 IngredientAddRequest request = createFoodList(name, memo, quantity, expiry);
                 sendFoodList(request);
+                }
             }
         });
     }

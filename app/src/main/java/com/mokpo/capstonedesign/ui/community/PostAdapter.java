@@ -14,7 +14,9 @@ import com.mokpo.capstonedesign.R;
 import com.mokpo.capstonedesign.retrofit2.IngredientResponse;
 import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientUpdateActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
@@ -49,6 +51,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.postId.setText(String.valueOf(post.getId()));
         holder.postTitle.setText(post.getTitle());
         holder.postContent.setText(post.getContent());
+//        String receivedDate = post.getDate();
+//        int dotIndex = receivedDate.indexOf('.'); // '.'의 인덱스 찾기
+//        String invertDate = receivedDate; // 기본값으로 받은 날짜 설정
+//        if (dotIndex != -1) {
+//            invertDate = receivedDate.substring(0, dotIndex); // '.' 이전까지의 문자열 가져오기
+//        }
+//        holder.postDate.setText(invertDate);
         holder.postDate.setText(post.getDate());
         holder.postUser.setText(String.valueOf(post.getUser()));
         if (holder.commentRecyclerView != null) {

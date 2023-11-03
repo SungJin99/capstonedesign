@@ -28,6 +28,7 @@ import com.mokpo.capstonedesign.ui.ingredientManagement.IngredientUpdateActivity
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,7 +115,11 @@ public class PostDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String commentContent  = commentEditText.getText().toString();
+                if(commentContent.isEmpty()){
+                    Toast.makeText(PostDetailActivity.this, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else{
                 sendComment(postId, commentContent);
+                }
             }
         });
     }
@@ -180,6 +185,12 @@ public class PostDetailActivity extends AppCompatActivity {
         TextView titleView = findViewById(R.id.title_tv);
         TextView contentView = findViewById(R.id.content_tv);
         TextView dateView = findViewById(R.id.date_tv);
+//        String receivedDate = post.getDate();
+//        int dotIndex = receivedDate.indexOf('.'); // '.'의 인덱스 찾기
+//        String invertDate = receivedDate; // 기본값으로 받은 날짜 설정
+//        if (dotIndex != -1) {
+//            invertDate = receivedDate.substring(0, dotIndex); // '.' 이전까지의 문자열 가져오기
+//        }
         titleView.setText(post.getTitle());
         contentView.setText(post.getContent());
         dateView.setText(post.getDate());

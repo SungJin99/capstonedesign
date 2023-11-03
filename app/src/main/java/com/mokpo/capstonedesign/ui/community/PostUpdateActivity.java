@@ -55,7 +55,15 @@ public class PostUpdateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = titleEdit.getText().toString();
                 String content = contentEdit.getText().toString();
-                updatePost(postId, title, content);
+                if (title.isEmpty() || content.isEmpty()) {
+                    Toast.makeText(PostUpdateActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if(title.isEmpty()){
+                    Toast.makeText(PostUpdateActivity.this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if(content.isEmpty()){
+                    Toast.makeText(PostUpdateActivity.this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else {
+                    updatePost(postId, title, content);
+                }
             }
         });
 

@@ -41,7 +41,11 @@ public class CommentUpdate extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 String content = commentEditText.getText().toString();
-                updateComment(board, id, content);
+                if(content.isEmpty()){
+                    Toast.makeText(CommentUpdate.this, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else {
+                    updateComment(board, id, content);
+                }
             }
         });
 

@@ -2,6 +2,7 @@ package com.mokpo.capstonedesign.ui.community;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 public class Post {

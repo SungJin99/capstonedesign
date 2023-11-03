@@ -25,6 +25,7 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mokpo.capstonedesign.IngredientAddActivity;
 import com.mokpo.capstonedesign.retrofit2.DeleteIngredients;
 import com.mokpo.capstonedesign.retrofit2.IngredientDeleteResponse;
 import com.mokpo.capstonedesign.retrofit2.IngredientResponse;
@@ -167,9 +168,21 @@ public class IngredientUpdateActivity extends AppCompatActivity {
                                 String expiry = expiryEditText.getText().toString();
                                 int quantity = Integer.parseInt(quantityTextView.getText().toString());
                                 String memo = memoEditText.getText().toString();
-
+                                if (name.isEmpty() || expiry.isEmpty() || quantity == 0 || memo.isEmpty()) {
+                                    Toast.makeText(IngredientUpdateActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                                } else if (name.isEmpty()) {
+                                    Toast.makeText(IngredientUpdateActivity.this, "식재료명을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                                }else if(expiry.isEmpty()){
+                                    Toast.makeText(IngredientUpdateActivity.this, "유통기한을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                                }else if(quantity == 0){
+                                    Toast.makeText(IngredientUpdateActivity.this, "수량을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                                }else if (memo.isEmpty()){
+                                    Toast.makeText(IngredientUpdateActivity.this, "메모를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
                                 IngredientUpdateRequest request = new IngredientUpdateRequest(id, name, expiry, quantity, memo);
                                 sendUpdateFoodList(request);
+                                }
                             }
                         })
                         .setNegativeButton("아니오", null)

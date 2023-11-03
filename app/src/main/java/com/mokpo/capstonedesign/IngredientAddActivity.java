@@ -131,9 +131,21 @@ public class IngredientAddActivity extends AppCompatActivity {
                 String expiry = expiryEditText.getText().toString();
                 int quantity = Integer.parseInt(quantityTextView.getText().toString());
                 String memo = memoEditText.getText().toString();
-
-                IngredientAddRequest request = createFoodList(name, memo, quantity, expiry);
-                sendFoodList(request);
+                if (name.isEmpty() || expiry.isEmpty() || quantity == 0 || memo.isEmpty()) {
+                    Toast.makeText(IngredientAddActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else if (name.isEmpty()) {
+                    Toast.makeText(IngredientAddActivity.this, "식재료명을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if(expiry.isEmpty()){
+                    Toast.makeText(IngredientAddActivity.this, "유통기한을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if(quantity == 0){
+                    Toast.makeText(IngredientAddActivity.this, "수량을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }else if (memo.isEmpty()){
+                    Toast.makeText(IngredientAddActivity.this, "메모를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    IngredientAddRequest request = createFoodList(name, memo, quantity, expiry);
+                    sendFoodList(request);
+                }
             }
         });
     }
