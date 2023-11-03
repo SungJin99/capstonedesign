@@ -51,13 +51,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.postId.setText(String.valueOf(post.getId()));
         holder.postTitle.setText(post.getTitle());
         holder.postContent.setText(post.getContent());
-//        String receivedDate = post.getDate();
-//        int dotIndex = receivedDate.indexOf('.'); // '.'의 인덱스 찾기
-//        String invertDate = receivedDate; // 기본값으로 받은 날짜 설정
-//        if (dotIndex != -1) {
-//            invertDate = receivedDate.substring(0, dotIndex); // '.' 이전까지의 문자열 가져오기
-//        }
-//        holder.postDate.setText(invertDate);
         holder.postDate.setText(post.getDate());
         holder.postUser.setText(String.valueOf(post.getUser()));
         if (holder.commentRecyclerView != null) {
@@ -67,11 +60,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 holder.commentRecyclerView.setAdapter(commentAdapter);
             } else {
                 // 댓글이 없는 경우의 처리
-                // 예: 댓글이 없습니다.
             }
         } else {
             // comment_recyclerview를 찾지 못한 경우의 처리
-            // 예: 에러 메시지를 출력하거나 다른 동작을 수행합니다.
         }
     }
 

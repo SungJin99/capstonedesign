@@ -113,13 +113,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
-    }
-    private boolean isUserValid(String username, String password) {
-        // TODO: 서버에서 사용자 이름과 비밀번호를 확인하는 코드 작성
-        return true;
-    }
     private void loginUser(String userid, String password) {
         ApiService apiService = ApiClient.getApiService();
         Call<LoginResponse> call = apiService.login(new LoginRequest(userid, password));

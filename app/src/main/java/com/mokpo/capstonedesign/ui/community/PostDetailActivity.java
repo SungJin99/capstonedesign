@@ -185,12 +185,6 @@ public class PostDetailActivity extends AppCompatActivity {
         TextView titleView = findViewById(R.id.title_tv);
         TextView contentView = findViewById(R.id.content_tv);
         TextView dateView = findViewById(R.id.date_tv);
-//        String receivedDate = post.getDate();
-//        int dotIndex = receivedDate.indexOf('.'); // '.'의 인덱스 찾기
-//        String invertDate = receivedDate; // 기본값으로 받은 날짜 설정
-//        if (dotIndex != -1) {
-//            invertDate = receivedDate.substring(0, dotIndex); // '.' 이전까지의 문자열 가져오기
-//        }
         titleView.setText(post.getTitle());
         contentView.setText(post.getContent());
         dateView.setText(post.getDate());

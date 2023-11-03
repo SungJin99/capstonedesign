@@ -3,7 +3,6 @@ import java.util.List;
 public class RecipeResponse {
     private List<Recipe> recipes;
 
-    // getter and setter methods
     public List<Recipe> getRecipes() {
         return recipes;
     }

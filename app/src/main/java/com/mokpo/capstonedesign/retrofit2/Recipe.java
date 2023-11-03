@@ -4,7 +4,7 @@ public class Recipe {
     private String RCP_NM;
     private String image_link;
 
-    // getter methods
+
     public String getRCP_NM() {
         return RCP_NM;
     }
@@ -13,7 +13,7 @@ public class Recipe {
         return image_link;
     }
 
-    // setter methods
+
     public void setRCP_NM(String RCP_NM) {
         this.RCP_NM = RCP_NM;
     }

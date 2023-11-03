@@ -285,8 +285,6 @@ public class IngredientUpdateActivity extends AppCompatActivity {
         if (requestCode == BARCODE_SCAN_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 String scanResult = data.getStringExtra("SCAN_RESULT");
-                // 스캔 결과 처리
-                // 예를 들어, TextView에 스캔 결과 출력
                 barcodeTextView.setText("스캔 결과: " + scanResult);
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // 스캔 취소 처리
