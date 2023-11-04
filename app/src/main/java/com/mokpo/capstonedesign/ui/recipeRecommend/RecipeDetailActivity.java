@@ -28,6 +28,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+    }
+
     public void displayRecipeDetails(RecipeDetail recipeDetail) {
         ImageView ivRecipeImage = binding.ivRecipeImage;
         TextView tvRcpNm = binding.tvRcpNm;

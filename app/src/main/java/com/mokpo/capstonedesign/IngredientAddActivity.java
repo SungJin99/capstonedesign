@@ -57,16 +57,16 @@ public class IngredientAddActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay;
     private TextView barcodeTextView;
     private int quantity = 0;
-
+    static EditText mfdEditText;
     private String name;
     private String memo;
     private String expiry;
+    private String mfd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_add);
-
         //barcodeTextView = findViewById(R.id.barcodeEditText);
         nameEditText = findViewById(R.id.nameEditText);
         EditText expiryEditText = findViewById(R.id.expiryEditText);
@@ -76,6 +76,8 @@ public class IngredientAddActivity extends AppCompatActivity {
         quantityTextView = findViewById(R.id.quantityTextView);
         memoEditText = findViewById(R.id.memoEditText);
         registerButton = findViewById(R.id.registerButton);
+
+        mfdEditText =findViewById(R.id.mfd);
         expiryEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,28 +133,29 @@ public class IngredientAddActivity extends AppCompatActivity {
                 String expiry = expiryEditText.getText().toString();
                 int quantity = Integer.parseInt(quantityTextView.getText().toString());
                 String memo = memoEditText.getText().toString();
+                String mfd = mfdEditText.getText().toString();
                 if (name.isEmpty() || expiry.isEmpty() || quantity == 0 || memo.isEmpty()) {
                     Toast.makeText(IngredientAddActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else if (name.isEmpty()) {
                     Toast.makeText(IngredientAddActivity.this, "식재료명을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }else if(expiry.isEmpty()){
-                    Toast.makeText(IngredientAddActivity.this, "유통기한을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(IngredientAddActivity.this, "유통기한 또는 제조일자를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }else if(quantity == 0){
                     Toast.makeText(IngredientAddActivity.this, "수량을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }else if (memo.isEmpty()){
                     Toast.makeText(IngredientAddActivity.this, "메모를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    IngredientAddRequest request = createFoodList(name, memo, quantity, expiry);
+                    IngredientAddRequest request = createFoodList(name, memo, quantity, mfd, expiry);
                     sendFoodList(request);
                 }
             }
         });
     }
-    public IngredientAddRequest createFoodList(String name, String memo, int quantity, String expiry) {
+    public IngredientAddRequest createFoodList(String name, String memo, int quantity, String mfd,  String expiry) {
         IngredientAddRequest request = new IngredientAddRequest();
         List<IngredientAddRequest.FoodItem> foodlist = new ArrayList<>();
-        foodlist.add(new IngredientAddRequest.FoodItem(name, memo, quantity, expiry));
+        foodlist.add(new IngredientAddRequest.FoodItem(name, memo, quantity, mfd, expiry));
         request.setFoodlist(foodlist);
         return request;
     }

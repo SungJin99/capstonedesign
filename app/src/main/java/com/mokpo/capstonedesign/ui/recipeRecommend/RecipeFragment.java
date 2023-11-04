@@ -64,6 +64,7 @@ public class RecipeFragment extends Fragment {
 
         // 새로운 RecipeDetailActivity로 이동
         startActivity(intent);
+
     }
 }
 

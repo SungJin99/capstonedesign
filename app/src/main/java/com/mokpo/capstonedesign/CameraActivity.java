@@ -21,6 +21,7 @@ import com.journeyapps.barcodescanner.BarcodeView;
 import com.mokpo.capstonedesign.DjangoApiHandler;
 import com.mokpo.capstonedesign.IngredientAddActivity;
 import com.mokpo.capstonedesign.R;
+import com.mokpo.capstonedesign.ui.community.PostDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,64 +60,69 @@ public class CameraActivity extends AppCompatActivity {
         super.onPause();
         barcodeView.pause();
     }
-    private void onScanComplete(String barcodeResult) {
-        String url = "http://20.214.138.61:8000/api/food/barnumretrun/";
-        String barnum = barcodeResult;
-        Intent resultIntent = new Intent(CameraActivity.this, IngredientAddActivity.class);
-        DjangoApiHandler.sendPostRequest(url, barnum, new DjangoApiHandler.ApiResponseCallback() {
-            @Override
-            public void onResponseReceived(String response) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
+        private void onScanComplete(String barcodeResult) {
+            String url = "http://20.214.138.61:8000/api/food/barnumretrun/";
+            String barnum = barcodeResult;
+            Intent resultIntent = new Intent(CameraActivity.this, IngredientAddActivity.class);
+            DjangoApiHandler.sendPostRequest(url, barnum, new DjangoApiHandler.ApiResponseCallback() {
+                @Override
+                public void onResponseReceived(String response) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
 
-                            // JSON 응답에서 필요한 값을 추출합니다.
-                            JSONObject c005Object = jsonResponse.getJSONObject("C005");
-                            JSONArray rowArray = c005Object.getJSONArray("row");
-                            JSONObject rowObject = rowArray.getJSONObject(0);
-                            String prdlstNm = rowObject.getString("PRDLST_NM");
-                            String pogDayCnt = rowObject.getString("POG_DAYCNT");
+                                // JSON 응답에서 필요한 값을 추출합니다.
+                                JSONObject c005Object = jsonResponse.getJSONObject("C005");
+                                JSONArray rowArray = c005Object.getJSONArray("row");
+                                JSONObject rowObject = rowArray.getJSONObject(0);
+                                String prdlstNm = rowObject.getString("PRDLST_NM");
+                                String pogDayCnt = rowObject.getString("POG_DAYCNT");
 
-                            // 추출한 값을 텍스트뷰에 표시합니다.
-                            result_NM = prdlstNm;
-                            result_DAYCNT = "POG_DAYCNT: " + pogDayCnt;
-                            System.out.println(result_NM);
-                            System.out.println(result_DAYCNT);
+                                // 추출한 값을 텍스트뷰에 표시합니다.
+                                result_NM = prdlstNm;
+                                result_DAYCNT = pogDayCnt;
+//                                System.out.println(result_NM);
+//                                System.out.println(result_DAYCNT);
+                                IngredientAddActivity.mfdEditText.setText(pogDayCnt);
+                                IngredientAddActivity.nameEditText.setText(result_NM);
 
-                            IngredientAddActivity.nameEditText.setText(result_NM);
+                                // 결과에 접근
+                                // 결과를 처리하는 로직을 작성하세요.
+                                // 예: 결과를 TextView에 표시하거나 다른 작업을 수행합니다.
+                                finish();
+                                setResult(Activity.RESULT_OK, resultIntent);
 
-                            // 결과에 접근
-                            // 결과를 처리하는 로직을 작성하세요.
-                            // 예: 결과를 TextView에 표시하거나 다른 작업을 수행합니다.
-                            finish();
-                            setResult(Activity.RESULT_OK, resultIntent);
-
-                           // resultIntent.putExtra("SCAN_RESULT", barnum);
-                           // finish();
-                            // 화면 이동
-                            //startActivity(resultIntent);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                               // resultIntent.putExtra("SCAN_RESULT", barnum);
+                               // finish();
+                                // 화면 이동
+                                //startActivity(resultIntent);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
-            }
+                    });
+                }
 
-            @Override
-            public void onError(String errorMessage) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 에러 처리
-                        Log.e("CameraActivity", "API request failed: " + errorMessage);
-                    }
-                });
+                @Override
+                public void onError(String errorMessage) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (errorMessage.contains("404")) {
+                                // 에러 처리
+                                onPause();
+                            }
+                            Toast.makeText(CameraActivity.this, "식재료 정보가 없는 바코드입니다. 추가하시려면 직접 등록해주세요.", Toast.LENGTH_SHORT).show();
+                            Log.e("CameraActivity", "API request failed: " + errorMessage);
+                            finish();
+                        }
+                    });
 
-            }
-        });
-    }
+                }
+            });
+        }
 
 
 

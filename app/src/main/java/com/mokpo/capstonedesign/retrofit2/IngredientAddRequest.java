@@ -18,13 +18,16 @@ public class IngredientAddRequest {
         private String name;
         private String memo;
         private int count;
-        private String date;
+        private String expiration_info;
 
-        public FoodItem(String name, String memo, int count, String date) {
+        private String manufacture_date;
+
+        public FoodItem(String name, String memo, int count, String expiration_info, String manufacture_date) {
             this.name = name;
             this.memo = memo;
             this.count = count;
-            this.date = date;
+            this.expiration_info = expiration_info;
+            this.manufacture_date = manufacture_date;
         }
 
         // getters, setters 생략

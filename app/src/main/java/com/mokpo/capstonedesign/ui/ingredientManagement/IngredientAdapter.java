@@ -53,7 +53,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
         IngredientResponse food = foodList.get(position);
         holder.tvIngredientId.setText(String.valueOf(food.getId()));
         holder.tvIngredientName.setText(food.getName());
-        holder.tvIngredientExpirationDate.setText(food.getDate());
+        holder.tvIngredientExpirationDate.setText(food.getExpiration_date());
         holder.tvIngredientQuantity.setText(String.valueOf(food.getCount()));
         holder.tvIngredientMemo.setText(food.getMemo());
         holder.tvIngredientUser.setText(String.valueOf(food.getUser()));
@@ -92,7 +92,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
                         Intent intent = new Intent(mContext, IngredientUpdateActivity.class);
                         intent.putExtra("id", foodList.get(position).getId());
                         intent.putExtra("name", foodList.get(position).getName());
-                        intent.putExtra("expirationdate", foodList.get(position).getDate());
+                        intent.putExtra("expiration_date", foodList.get(position).getExpiration_date());
                         intent.putExtra("quantity", foodList.get(position).getCount());
                         intent.putExtra("memo", foodList.get(position).getMemo());
                         intent.putExtra("user", foodList.get(position).getUser());

@@ -20,6 +20,9 @@ public class IngredientAddResponse {
         private int count;
         private String date;
 
+        private String manufacture_date;
+        private String expiration_info;
+
         public String getName() {
             return name;
         }
@@ -35,7 +38,11 @@ public class IngredientAddResponse {
         public void setMemo(String memo) {
             this.memo = memo;
         }
+        public String getExpiration_info(){return expiration_info;}
+        public void setExpiration_info(String expiration_info){this.expiration_info = expiration_info;}
 
+        public String getManufacture_date(){return manufacture_date;}
+        public void setManufacture_date(String manufacture_date){this.manufacture_date = manufacture_date;}
         public int getCount() {
             return count;
         }

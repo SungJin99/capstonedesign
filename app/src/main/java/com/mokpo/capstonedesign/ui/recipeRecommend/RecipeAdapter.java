@@ -47,8 +47,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.tvRecipeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String recipeName = ((TextView) v).getText().toString();
                 recipeViewModel.fetchRecipeDetails(recipeName);  // 레시피 이름을 그대로 사용하여 요청을 보냅니다.
+
             }
         });
 

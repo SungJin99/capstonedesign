@@ -54,6 +54,7 @@ public class IngredientUpdateActivity extends AppCompatActivity {
     private String name;
     private String memo;
     private String expiry;
+    private String mfd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,16 +127,16 @@ public class IngredientUpdateActivity extends AppCompatActivity {
                 if (name.isEmpty() || expiry.isEmpty() || quantity == 0 || memo.isEmpty()) {
                     Toast.makeText(IngredientUpdateActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else{
-                IngredientAddRequest request = createFoodList(name, memo, quantity, expiry);
+                IngredientAddRequest request = createFoodList(name, memo, quantity, expiry, mfd);
                 sendFoodList(request);
                 }
             }
         });
     }
-    public IngredientAddRequest createFoodList(String name, String memo, int quantity, String expiry) {
+    public IngredientAddRequest createFoodList(String name, String memo, int quantity, String expiry, String mfd) {
         IngredientAddRequest request = new IngredientAddRequest();
         List<IngredientAddRequest.FoodItem> foodlist = new ArrayList<>();
-        foodlist.add(new IngredientAddRequest.FoodItem(name, memo, quantity, expiry));
+        foodlist.add(new IngredientAddRequest.FoodItem(name, memo, quantity, expiry, mfd));
         request.setFoodlist(foodlist);
         return request;
     }

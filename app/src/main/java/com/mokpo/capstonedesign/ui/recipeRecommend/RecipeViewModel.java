@@ -26,13 +26,13 @@ import java.util.List;
 public class RecipeViewModel extends ViewModel {
 
     private final MutableLiveData<List<Recipe>> recipes;
-    private final MutableLiveData<RecipeDetail> recipeDetailLiveData;
+    private final SingleLiveEvent<RecipeDetail> recipeDetailLiveData;
     private Context context;
 
     public RecipeViewModel(Context context) {
         this.context = context;
         recipes = new MutableLiveData<>();
-        recipeDetailLiveData = new MutableLiveData<>();
+        recipeDetailLiveData = new SingleLiveEvent<>();
         loadRecipes();
     }
 
@@ -55,6 +55,7 @@ public class RecipeViewModel extends ViewModel {
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     recipes.setValue(response.body().getRecipes());
+
                 }
             }
 
