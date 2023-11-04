@@ -33,7 +33,7 @@
             android:id="@+id/mfd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="제조일자로부터" />
+            android:hint="유통기한 정보" />
 
         <LinearLayout
             android:id="@+id/quantityLayout"

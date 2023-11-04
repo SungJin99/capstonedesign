@@ -83,8 +83,8 @@ public class CameraActivity extends AppCompatActivity {
                                 // 추출한 값을 텍스트뷰에 표시합니다.
                                 result_NM = prdlstNm;
                                 result_DAYCNT = pogDayCnt;
-//                                System.out.println(result_NM);
-//                                System.out.println(result_DAYCNT);
+                                System.out.println(result_NM);
+                                System.out.println(result_DAYCNT);
                                 IngredientAddActivity.mfdEditText.setText(pogDayCnt);
                                 IngredientAddActivity.nameEditText.setText(result_NM);
 

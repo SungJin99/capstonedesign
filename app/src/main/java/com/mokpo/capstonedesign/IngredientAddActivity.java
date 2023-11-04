@@ -62,6 +62,7 @@ public class IngredientAddActivity extends AppCompatActivity {
     private String memo;
     private String expiry;
     private String mfd;
+    private String dayCnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,8 @@ public class IngredientAddActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
 
         mfdEditText =findViewById(R.id.mfd);
+        mfdEditText.setEnabled(false);
+
         expiryEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,13 +198,13 @@ public class IngredientAddActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == BARCODE_SCAN_REQUEST_CODE) {
+
             if (resultCode == Activity.RESULT_OK) {
                 String scanResult = data.getStringExtra("SCAN_RESULT");
-                // 스캔 결과 처리
-                // 예를 들어, TextView에 스캔 결과 출력
                 barcodeTextView.setText("스캔 결과: " + scanResult);
+//                dayCnt = data.getStringExtra("dayCnt");
+//                System.out.println(dayCnt);
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // 스캔 취소 처리
             } else {

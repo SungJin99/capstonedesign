@@ -50,9 +50,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         });
         holder.postId.setText(String.valueOf(post.getId()));
         holder.postTitle.setText(post.getTitle());
-        holder.postContent.setText(post.getContent());
         holder.postDate.setText(post.getDate());
-        holder.postUser.setText(String.valueOf(post.getUser()));
+//        holder.postUser.setText(String.valueOf(post.getUser()));
         if (holder.commentRecyclerView != null) {
             List<Comment> comments = post.getComments();
             if (comments != null) {
@@ -74,7 +73,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public class PostViewHolder extends RecyclerView.ViewHolder {
         TextView postId;
         TextView postTitle;
-        TextView postContent;
         TextView postDate;
         TextView postUser;
 
@@ -84,9 +82,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             super(itemView);
             postId = itemView.findViewById(R.id.post_id);
             postTitle = itemView.findViewById(R.id.post_title);
-            postContent = itemView.findViewById(R.id.post_content);
             postDate = itemView.findViewById(R.id.post_date);
-            postUser= itemView.findViewById(R.id.post_user);
+//            postUser= itemView.findViewById(R.id.post_user);
 
         }
 
