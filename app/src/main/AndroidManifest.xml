@@ -49,6 +49,8 @@
         <activity
             android:name=".ui.community.PostDetailActivity"
             android:label="게시글 조회" />
+        <activity android:name=".ui.recipeRecommend.RecipeDetailActivity"
+            android:label="레시피 상세정보"/>
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"

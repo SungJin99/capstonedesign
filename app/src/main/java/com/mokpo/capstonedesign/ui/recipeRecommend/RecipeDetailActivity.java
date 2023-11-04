@@ -1,78 +1,32 @@
 package com.mokpo.capstonedesign.ui.recipeRecommend;
 
+
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.mokpo.capstonedesign.databinding.FragmentDashboardBinding;
-import com.mokpo.capstonedesign.databinding.FragmentRecipeDetailBinding;
-import com.mokpo.capstonedesign.retrofit2.Recipe;
+import com.mokpo.capstonedesign.R;
+import com.mokpo.capstonedesign.databinding.ActivityRecipeDetailBinding;
 import com.mokpo.capstonedesign.retrofit2.RecipeDetail;
-import java.util.ArrayList;
 import com.squareup.picasso.Picasso;
 
-public class RecipeDetailFragment extends Fragment {
-
-    private FragmentRecipeDetailBinding binding;
-
-    public RecipeDetailFragment() {
-        /* Required empty public constructor */
-    }
-
-    public static RecipeDetailFragment newInstance(RecipeDetail recipeDetail) {
-        RecipeDetailFragment fragment = new RecipeDetailFragment();
-        Bundle args = new Bundle();
-        args.putSerializable("recipeDetail", recipeDetail);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class RecipeDetailActivity extends AppCompatActivity {
+    private ActivityRecipeDetailBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentRecipeDetailBinding.inflate(inflater, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityRecipeDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        setHasOptionsMenu(true);
-
-        if (getArguments() != null) {
-            RecipeDetail recipeDetail = (RecipeDetail) getArguments().getSerializable("recipeDetail");
+        if (getIntent().getExtras() != null) {
+            RecipeDetail recipeDetail = (RecipeDetail) getIntent().getSerializableExtra("recipe_detail");
             displayRecipeDetails(recipeDetail);
         }
-
-        return binding.getRoot();
     }
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        // 이 부분을 추가하세요.
-        if (getActivity().getActionBar() != null) {
-            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                getActivity().onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     public void displayRecipeDetails(RecipeDetail recipeDetail) {
         ImageView ivRecipeImage = binding.ivRecipeImage;
@@ -88,7 +42,7 @@ public class RecipeDetailFragment extends Fragment {
 
         // 이미지 URL을 돌면서 ImageView를 생성하고 Picasso로 이미지 로드
         for (String imageUrl : imageUrls) {
-            ImageView imageView = new ImageView(getContext());
+            ImageView imageView = new ImageView(this);
             Picasso.get().load(imageUrl).into(imageView);
 
             // ImageView를 LinearLayout에 추가
@@ -123,4 +77,3 @@ public class RecipeDetailFragment extends Fragment {
         }
     }
 }
-

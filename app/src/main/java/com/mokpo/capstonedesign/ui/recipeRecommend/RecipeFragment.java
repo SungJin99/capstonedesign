@@ -1,5 +1,6 @@
 package com.mokpo.capstonedesign.ui.recipeRecommend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,14 +58,12 @@ public class RecipeFragment extends Fragment {
     }
 
     public void displayRecipeDetails(RecipeDetail recipeDetail) {
-        // 새로운 RecipeDetailFragment 인스턴스를 생성하고 이동
-        RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipeDetail);
-        // 이 부분은 실제 애플리케이션의 프래그먼트 관리 방식에 따라 달라질 수 있습니다.
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit();
+        // Intent를 생성하고 RecipeDetail 객체를 추가
+        Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
+        intent.putExtra("recipe_detail", recipeDetail);
+
+        // 새로운 RecipeDetailActivity로 이동
+        startActivity(intent);
     }
 }
 
