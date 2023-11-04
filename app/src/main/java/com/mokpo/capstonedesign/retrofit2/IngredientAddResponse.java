@@ -18,10 +18,11 @@ public class IngredientAddResponse {
         private String name;
         private String memo;
         private int count;
-        private String date;
+
+        private String expiration_info;
 
         private String manufacture_date;
-        private String expiration_info;
+
 
         public String getName() {
             return name;
@@ -51,12 +52,6 @@ public class IngredientAddResponse {
             this.count = count;
         }
 
-        public String getDate() {
-            return date;
-        }
 
-        public void setDate(String date) {
-            this.date = date;
-        }
     }
 }

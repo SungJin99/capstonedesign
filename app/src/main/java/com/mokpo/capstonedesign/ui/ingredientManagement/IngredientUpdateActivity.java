@@ -96,7 +96,7 @@ public class IngredientUpdateActivity extends AppCompatActivity {
 
         id = getIntent().getIntExtra("id", 0);
         name = getIntent().getStringExtra("name");
-        expiry = getIntent().getStringExtra("expirationdate");
+        expiry = getIntent().getStringExtra("expiration_date");
         quantity = getIntent().getIntExtra("quantity", 0);
         memo = getIntent().getStringExtra("memo");
 
