@@ -41,9 +41,11 @@ public interface ApiService {
     // 커뮤니티
     @GET("api/post/list_post/")
     Call<ArrayList<Post>> getPostList(@Header("Authorization")String token);
-
+    @FormUrlEncoded
     @POST("api/post/create_post/")
-    Call<PostResponse> createPost(@Header("Authorization")String token, @Body PostRequest request);
+    Call<PostResponse> createPost(@Header("Authorization")String token,
+                                  @Field("title") String title,
+                                  @Field("content") String content);
     @GET("api/post/get_post/{id}/")
     Call<Post> getPost(@Path("id") int id);
 

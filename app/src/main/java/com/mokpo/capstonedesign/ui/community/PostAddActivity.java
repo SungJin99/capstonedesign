@@ -17,7 +17,6 @@ import com.mokpo.capstonedesign.IngredientAddActivity;
 import com.mokpo.capstonedesign.R;
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
-import com.mokpo.capstonedesign.retrofit2.PostRequest;
 import com.mokpo.capstonedesign.retrofit2.PostResponse;
 
 import retrofit2.Call;
@@ -32,8 +31,6 @@ public class PostAddActivity extends AppCompatActivity {
 
     private Button regButton;
 
-    private String title;
-    private String content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +52,18 @@ public class PostAddActivity extends AppCompatActivity {
                 }else if(content.isEmpty()){
                     Toast.makeText(PostAddActivity.this, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }else{
-                PostRequest request = new PostRequest(title, content);
-                createPost(request);}
-
+                createPost(title, content);
+                }
             }
         });
     }
-    private void createPost(PostRequest request) {
+    private void createPost(String title, String content) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String accessToken = sharedPreferences.getString("jwt_token", "");
 
-
         ApiService apiService = ApiClient.getApiService();
 
-        Call<PostResponse> call = apiService.createPost("Bearer " + accessToken, request);
+        Call<PostResponse> call = apiService.createPost("Bearer " + accessToken, title, content);
         call.enqueue(new Callback<PostResponse>() {
             @Override
             public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {

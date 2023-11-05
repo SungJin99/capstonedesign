@@ -11,41 +11,32 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_ingredient_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID"
-            android:textSize="16sp" />
-
-        <TextView
             android:id="@+id/tv_ingredient_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_weight="1"
             android:text="식재료 이름"
             android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_ingredient_expiration_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="유통기한"
-            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_ingredient_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:text="수량"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_ingredient_expiration_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="유통기한"
+            android:textSize="16sp" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,19 +45,17 @@
 
         <TextView
             android:id="@+id/tv_ingredient_memo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="메모"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_ingredient_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="User"
-            android:textSize="14sp" />
+            android:text="메모"
+            android:textSize="16sp" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
 
 </LinearLayout>

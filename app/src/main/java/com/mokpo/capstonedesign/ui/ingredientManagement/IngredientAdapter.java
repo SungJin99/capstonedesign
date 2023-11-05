@@ -51,12 +51,10 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
         IngredientResponse food = foodList.get(position);
-        holder.tvIngredientId.setText(String.valueOf(food.getId()));
-        holder.tvIngredientName.setText(food.getName());
+        holder.tvIngredientName.setText("재료명: " + food.getName());
         holder.tvIngredientExpirationDate.setText(food.getExpiration_date());
-        holder.tvIngredientQuantity.setText(String.valueOf(food.getCount()));
-        holder.tvIngredientMemo.setText(food.getMemo());
-        holder.tvIngredientUser.setText(String.valueOf(food.getUser()));
+        holder.tvIngredientQuantity.setText("수량: " + String.valueOf(food.getCount()));
+        holder.tvIngredientMemo.setText("메모: " + food.getMemo());
 
     }
 
@@ -66,22 +64,18 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
     }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
-        TextView tvIngredientId;
         TextView tvIngredientName;
         TextView tvIngredientExpirationDate;
         TextView tvIngredientQuantity;
         TextView tvIngredientMemo;
-        TextView tvIngredientUser;
         Button updateButton;
 
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvIngredientId = itemView.findViewById(R.id.tv_ingredient_id);
             tvIngredientName = itemView.findViewById(R.id.tv_ingredient_name);
             tvIngredientExpirationDate = itemView.findViewById(R.id.tv_ingredient_expiration_date);
             tvIngredientQuantity = itemView.findViewById(R.id.tv_ingredient_quantity);
             tvIngredientMemo = itemView.findViewById(R.id.tv_ingredient_memo);
-            tvIngredientUser = itemView.findViewById(R.id.tv_ingredient_user);
             updateButton = itemView.findViewById(R.id.updateButton);
 
             itemView.setOnClickListener(new View.OnClickListener() {
