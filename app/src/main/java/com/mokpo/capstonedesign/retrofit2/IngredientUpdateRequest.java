@@ -9,7 +9,7 @@ public class IngredientUpdateRequest {
     private String name;
     private String memo;
     private int count;
-    private String date;
+    private String expiration_date;
 
     public int getId(){return id;}
 
@@ -39,17 +39,17 @@ public class IngredientUpdateRequest {
         this.count = count;
     }
 
-    public String getDate() {
-        return date;
+    public String getExpiration_date() {
+        return expiration_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setExpiration_date(String expiration_date) {
+        this.expiration_date = expiration_date;
     }
-    public IngredientUpdateRequest(int id, String name, String date, int count, String memo) {
+    public IngredientUpdateRequest(int id, String name, String expiration_date, int count, String memo) {
         this.id = id;
         this.name = name;
-        this.date = date;
+        this.expiration_date = expiration_date;
         this.count = count;
         this.memo = memo;
     }

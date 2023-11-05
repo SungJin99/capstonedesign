@@ -33,7 +33,7 @@ public interface ApiService {
                                                  @Field("name") String name,
                                                  @Field("memo") String memo,
                                                  @Field("count") int quantity,
-                                                 @Field("date") String date);
+                                                 @Field("expiration_date") String expiration_date);
 
     @POST("api/food/del_ingredients/")
     Call<IngredientDeleteResponse> DeleteFood(@Header("Authorization")String token,

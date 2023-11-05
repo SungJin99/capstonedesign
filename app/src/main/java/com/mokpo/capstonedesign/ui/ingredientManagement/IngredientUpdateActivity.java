@@ -220,7 +220,7 @@ public class IngredientUpdateActivity extends AppCompatActivity {
                 updateRequest.getName(),
                 updateRequest.getMemo(),
                 updateRequest.getCount(),
-                updateRequest.getDate());
+                updateRequest.getExpiration_date());
 
         call.enqueue(new Callback<IngredientUpdateResponse>() {
             @SuppressLint("NotifyDataSetChanged")

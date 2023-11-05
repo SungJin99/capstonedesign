@@ -19,7 +19,7 @@ public class IngredientUpdateResponse {
         private String name;
         private String memo;
         private int count;
-        private String date;
+        private String expiration_date;
         public int getId(){return id;}
         public void setId(int id){this.id = id;}
 
@@ -47,12 +47,12 @@ public class IngredientUpdateResponse {
             this.count = count;
         }
 
-        public String getDate() {
-            return date;
+        public String getExpiration_date() {
+            return expiration_date;
         }
 
-        public void setDate(String date) {
-            this.date = date;
+        public void setExpiration_date(String expiration_date) {
+            this.expiration_date = expiration_date;
         }
     }
 }
