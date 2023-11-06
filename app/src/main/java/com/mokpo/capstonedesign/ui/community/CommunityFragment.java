@@ -1,8 +1,5 @@
 package com.mokpo.capstonedesign.ui.community;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,8 +11,6 @@ import com.mokpo.capstonedesign.databinding.FragmentCommunityBinding;
 import com.mokpo.capstonedesign.retrofit2.ApiClient;
 import com.mokpo.capstonedesign.retrofit2.ApiService;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;

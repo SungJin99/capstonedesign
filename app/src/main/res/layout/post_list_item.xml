@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,8 +17,8 @@
             android:layout_height="wrap_content"
             android:text="글번호"
             android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp" />
 
         <TextView
             android:id="@+id/post_title"
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="제목"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="14dp"
             android:textSize="16sp" />
 
         <TextView
@@ -33,15 +34,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="작성일자"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="14dp"
             android:textSize="14sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="15dp" /> <!-- 이 부분이 간격을 추가한 부분입니다 -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-</LinearLayout>
+        android:layout_height="50dp" /> <!-- 이 부분이 간격을 추가한 부분입니다 -->
+
+</androidx.cardview.widget.CardView>
