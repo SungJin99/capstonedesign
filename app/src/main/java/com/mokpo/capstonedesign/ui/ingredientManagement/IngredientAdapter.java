@@ -26,7 +26,11 @@ import com.mokpo.capstonedesign.retrofit2.IngredientResponse;
 import com.mokpo.capstonedesign.retrofit2.IngredientUpdateRequest;
 import com.mokpo.capstonedesign.retrofit2.IngredientUpdateResponse;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +38,8 @@ import retrofit2.Callback;
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.FoodViewHolder> {
     Context mContext;
     private List<IngredientResponse> foodList;
-
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
     public IngredientAdapter(Context context, List<IngredientResponse> foodList) {
         this.mContext = context;
         this.foodList = foodList;
@@ -55,7 +60,27 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
         holder.tvIngredientExpirationDate.setText(food.getExpiration_date());
         holder.tvIngredientQuantity.setText("수량: " + String.valueOf(food.getCount()));
         holder.tvIngredientMemo.setText("메모: " + food.getMemo());
+        int daysLeft = getDaysLeft(food.getExpiration_date());
 
+        if (food.getExpiration_date() == null) {
+            holder.tvHeader.setText("유통기한 없음");
+        } else if (daysLeft < 0) {
+            holder.tvHeader.setText("유통기한 만료");
+        } else if (daysLeft <= 1) {
+            holder.tvHeader.setText("1일 남음");
+        } else if (daysLeft <= 3) {
+            holder.tvHeader.setText("3일 남음");
+        } else {
+            holder.tvHeader.setText("5일 이상 남음");
+        }
+    }
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return TYPE_HEADER;
+        } else {
+            return TYPE_ITEM;
+        }
     }
 
     @Override
@@ -68,10 +93,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
         TextView tvIngredientExpirationDate;
         TextView tvIngredientQuantity;
         TextView tvIngredientMemo;
+        TextView tvHeader;
         Button updateButton;
 
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvHeader = itemView.findViewById(R.id.tv_header);
             tvIngredientName = itemView.findViewById(R.id.tv_ingredient_name);
             tvIngredientExpirationDate = itemView.findViewById(R.id.tv_ingredient_expiration_date);
             tvIngredientQuantity = itemView.findViewById(R.id.tv_ingredient_quantity);
@@ -98,6 +125,22 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
         }
 
     }
+    private int getDaysLeft(String expirationDate) {
+        if (expirationDate == null) {
+            return Integer.MAX_VALUE; // or other default value
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date expDate = null;
+        try {
+            expDate = sdf.parse(expirationDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long diff = expDate.getTime() - System.currentTimeMillis();
+        return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
 
 }
 

@@ -49,7 +49,7 @@ public class PostUpdateActivity extends AppCompatActivity {
             finish();
             return;
         }
-        loadPostDetail(postId);
+//        loadPostDetail(postId);
         postUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,35 +99,35 @@ public class PostUpdateActivity extends AppCompatActivity {
             }
         });
     }
-    private void loadPostDetail(int postId) {
-
-        ApiService apiService = ApiClient.getApiService();
-
-        Call<Post> call = apiService.getPost(postId);
-
-        call.enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                if (response.isSuccessful()) {
-                    Post post = response.body();
-
-                    // 받아온 게시글 정보를 화면에 표시합니다.
-                    EditText titleView = findViewById(R.id.title_et);
-                    EditText contentView = findViewById(R.id.content_et);
-                    titleView.setText(post.getTitle());
-                    contentView.setText(post.getContent());
-
-
-                } else {
-                    Toast.makeText(PostUpdateActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                Toast.makeText(PostUpdateActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void loadPostDetail(int postId) {
+//
+//        ApiService apiService = ApiClient.getApiService();
+//
+//        Call<Post> call = apiService.getPost(postId);
+//
+//        call.enqueue(new Callback<Post>() {
+//            @Override
+//            public void onResponse(Call<Post> call, Response<Post> response) {
+//                if (response.isSuccessful()) {
+//                    Post post = response.body();
+//
+//                    // 받아온 게시글 정보를 화면에 표시합니다.
+//                    EditText titleView = findViewById(R.id.title_et);
+//                    EditText contentView = findViewById(R.id.content_et);
+//                    titleView.setText(post.getTitle());
+//                    contentView.setText(post.getContent());
+//
+//
+//                } else {
+//                    Toast.makeText(PostUpdateActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Post> call, Throwable t) {
+//                Toast.makeText(PostUpdateActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
 }
