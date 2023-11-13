@@ -66,13 +66,18 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
             holder.tvHeader.setText("유통기한 없음");
         } else if (daysLeft < 0) {
             holder.tvHeader.setText("유통기한 만료");
-        } else if (daysLeft <= 1) {
-            holder.tvHeader.setText("1일 남음");
+        } else if (daysLeft == 0) {
+            holder.tvHeader.setText("오늘까지입니다.");
+        } else if (daysLeft == 1) {
+            holder.tvHeader.setText("1일 남았습니다.");
+        } else if (daysLeft > 1 && daysLeft < 3) {
+            holder.tvHeader.setText("3일 미만 남았습니다.");
         } else if (daysLeft <= 3) {
-            holder.tvHeader.setText("3일 남음");
+            holder.tvHeader.setText("3일 이상 남았습니다.");
         } else {
-            holder.tvHeader.setText("5일 이상 남음");
+            holder.tvHeader.setText("5일 이상 남았습니다.");
         }
+
     }
     @Override
     public int getItemViewType(int position) {
