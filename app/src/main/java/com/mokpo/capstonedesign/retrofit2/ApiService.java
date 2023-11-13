@@ -79,5 +79,10 @@ public interface ApiService {
     @GET("api/food/recipe_detail/{name}")
     Call<RecipeDetail> getRecipeDetail(@Header("Authorization")String token, @Path("name") String recipeName);
 
+    //리프레쉬 토큰
+    @FormUrlEncoded
+    @POST("api/token/refresh/")
+    Call<RefreshToken> getAccessToken(@Header("Authorization")String token, @Field("refresh")String refresh);
+
 }
 

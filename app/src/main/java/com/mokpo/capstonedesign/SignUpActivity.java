@@ -151,7 +151,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
     private String checkDuplicate(String postData) {
         String result = "";
-        String apiUrl = "http://20.214.138.61:8000/api/user/checkid/"; // Django 아이디 중복 확인 API URL을 입력하세요.
+        String apiUrl = "http://20.249.62.24:8000/api/user/checkid/"; // Django 아이디 중복 확인 API URL을 입력하세요.
 
         try {
             URL url = new URL(apiUrl);
@@ -227,7 +227,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private String signUp(String postData) {
         String result = "";
-        String apiUrl = "http://20.214.138.61:8000/api/user/join/"; // Django 회원가입 API URL을 입력하세요.
+        String apiUrl = "http://20.249.62.24:8000/api/user/join/"; // Django 회원가입 API URL을 입력하세요.
         try {
             URL url = new URL(apiUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
