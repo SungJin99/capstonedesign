@@ -88,9 +88,7 @@ public class CameraActivity extends AppCompatActivity {
                                 IngredientAddActivity.mfdEditText.setText(pogDayCnt);
                                 IngredientAddActivity.nameEditText.setText(result_NM);
 
-                                // 결과에 접근
-                                // 결과를 처리하는 로직을 작성하세요.
-                                // 예: 결과를 TextView에 표시하거나 다른 작업을 수행합니다.
+
                                 finish();
                                 setResult(Activity.RESULT_OK, resultIntent);
 

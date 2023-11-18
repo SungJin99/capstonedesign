@@ -188,6 +188,7 @@ public class PostDetailActivity extends AppCompatActivity {
         titleView.setText(post.getTitle());
         contentView.setText(post.getContent());
         dateView.setText(post.getDate());
+        
     }
 
     private void displayComments(List<Comment> comments) {

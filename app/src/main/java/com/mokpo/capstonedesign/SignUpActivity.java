@@ -212,6 +212,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         return result;
     }
+
     private boolean isValidEmail(String email) {
 // 이메일 유효성 검사에 사용될 정규표현식
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -295,4 +296,5 @@ public class SignUpActivity extends AppCompatActivity {
         super.onDestroy();
         executorService.shutdown();
     }
+
 }
