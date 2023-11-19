@@ -67,7 +67,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Fo
         } else if (daysLeft < 0) {
             holder.tvHeader.setText("유통기한 만료");
         } else if (daysLeft == 0) {
-            holder.tvHeader.setText("오늘까지입니다.");
+            holder.tvHeader.setText("오늘까지 입니다.");
         } else if (daysLeft == 1) {
             holder.tvHeader.setText("1일 남았습니다.");
         } else if (daysLeft > 1 && daysLeft < 3) {
