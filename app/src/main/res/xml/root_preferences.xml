@@ -6,9 +6,9 @@
             app:key="logout"
             app:title="@string/logout_title" />
 
-        <Preference
-            app:key="delete_account"
-            app:title="@string/delete_account_title" />
+<!--        <Preference-->
+<!--            app:key="delete_account"-->
+<!--            app:title="@string/delete_account_title" />-->
 
     </PreferenceCategory>
 

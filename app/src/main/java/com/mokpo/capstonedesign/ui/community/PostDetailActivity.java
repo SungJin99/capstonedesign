@@ -31,6 +31,7 @@ import org.w3c.dom.Text;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,6 +84,19 @@ public class PostDetailActivity extends AppCompatActivity {
         titleEditText.setText(title);
         contentEditText.setText(content);
         dateTextView.setText(Date);
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        int userId = sharedPreferences.getInt("userid", -1);
+//
+//        // 현재 게시글의 작성자 ID와 비교
+//        if (userId == user) {
+//            // 사용자가 작성자라면 버튼 보이게 하기
+//            updateButton.setVisibility(View.VISIBLE);
+//            deleteButton.setVisibility(View.VISIBLE);
+//        } else {
+//            // 사용자가 작성자가 아니라면 버튼 감추기
+//            updateButton.setVisibility(View.GONE);
+//            deleteButton.setVisibility(View.GONE);
+//        }
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +149,6 @@ public class PostDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Post post = response.body();
                     List<Comment> comments = post.getComments();
-                    System.out.println(comments.toString());
                     CommentAdapter commentAdapter = new CommentAdapter(comments, PostDetailActivity.this);
                     commentRecyclerView.setAdapter(commentAdapter);
                     displayPost(post);

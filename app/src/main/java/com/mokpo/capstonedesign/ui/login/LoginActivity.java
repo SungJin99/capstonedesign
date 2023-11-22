@@ -124,8 +124,6 @@ public class LoginActivity extends AppCompatActivity {
                     String refreshToken = response.body().getRefreshToken();
                     saveJwtToken(getApplicationContext(), accessToken);
                     saveRefreshToken(getApplicationContext(), refreshToken);
-                    System.out.println(accessToken);
-                    System.out.println(refreshToken);
                     Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, IngredientManagementActivity.class);
                     startActivity(intent);
